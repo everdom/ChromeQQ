@@ -179,19 +179,18 @@ $(document).ready(function(){
       }
     };
 
-    aOptions.onclick = function(){
-      options = document.getElementById("d_options");
+    aOptions.onclick = function(){      
       if(!isShowOption)
       {
         isShowOption = true;
-        options.style.display="block";
+        $("#d_options").slideDown(500);
         //this.style.color="black";
         //this.style.backgroundColor="white";
       }
       else
       {
         isShowOption = false;
-        options.style.display="none";
+        $("#d_options").slideUp(500);
         //this.style.color="white";
         //this.style.backgroundColor="black";
       }
