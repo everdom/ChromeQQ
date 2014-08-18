@@ -1,0 +1,24 @@
+{
+    "name": "WebQQ",
+    "author":"everdom <everdom.g@gmail.com>",
+    "description": "WebQQ",
+    "version": "0.1",
+    "manifest_version": 2,
+    "app": {
+        "background": {
+            "scripts": ["background.js"]
+        }
+    },
+    "icons": { 
+        "16": "qq-16.png", 
+        "128": "qq-128.png" 
+    },
+    "permissions" : [
+        "webview",
+        "<all_urls>"
+    ],
+    "externally_connectable": {
+       "matches": ["*://*.alloyteam.com/*", "*://*.qq.com/*", "*://*.qstatic.com/*"]
+    },
+    "offline_enabled": true
+}
