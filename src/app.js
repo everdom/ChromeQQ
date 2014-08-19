@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    var webview = document.getElementById("web_qq");
+    var webview = document.getElementById("qq");
     var aSmartQQ = document.getElementById("a_smart_qq");
     var aWebQQ = document.getElementById("a_web_qq");
     var aOptions = document.getElementById("a_options");
@@ -137,14 +137,14 @@ $(document).ready(function(){
 
     // WebView Events 
     webview.addEventListener("loadstart", function() {
-      document.title = "正在加载...";
+      document.title = settings.app.loading_text;
     });
 
     webview.addEventListener("loadstop", function() {
-      document.title = "WebQQ";      
+      document.title = settings.app.title;      
       //indicator.innerText = "";
       webview.style.width = window.innerWidth+"px";
-      webview.style.height = (window.innerHeight-30)+"px";
+      webview.style.height = (window.innerHeight-settings.nav_style.height)+"px";
     });
 
     webview.addEventListener('newwindow', function(e){
@@ -154,28 +154,28 @@ $(document).ready(function(){
     // UI Events
     aSmartQQ.onclick = function(){
       webview.src="http://w.qq.com";
-      window.resizeTo(340,620);
+      window.resizeTo(settings.smart_qq.width,settings.smart_qq.height);
     };
 
     aWebQQ.onclick = function(){
       webview.src="http://web2.qq.com/webqq.html";
-      window.resizeTo(1000,620);
+      window.resizeTo(settings.web_qq.width,settings.web_qq.height);
     };
 
     aOptions.onmouseenter = function(){
-      var bgColor = $("nav").css("background-color");
-      var fgColor = $("nav").css("color");
-      $(this).css("background-color", fgColor);
+      var bgColor = settings.nav_style.bg_color;
+      var fontColor = settings.nav_style.font_color;
+      $(this).css("background-color", fontColor);
       $(this).css("color", bgColor);
     };
 
     aOptions.onmouseleave = function(){
-      var bgColor = $("nav").css("background-color");
-      var fgColor = $("nav").css("color");
+      var bgColor = settings.nav_style.bg_color;
+      var fontColor = settings.nav_style.font_color;
       if(!isShowOption)
       {
         $(this).css("background-color", bgColor);
-        $(this).css("color", fgColor);
+        $(this).css("color", fontColor);
       }
     };
 

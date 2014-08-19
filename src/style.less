@@ -73,9 +73,34 @@ nav a:hover{background: @text_hover_bg; color:@text_hover_color;}
 }
 
 
-#d_options input.color_chooser{background:black;border: none;width: 13px;height: 13px;padding: 0px;margin: 0px;vertical-align: middle; margin-right:5px; cursor:pointer; font-weight: bold; text-shadow:1px 1px white; font-family: monospace;}
-#d_options input.color_chooser:hover{box-shadow:@color_chooser_shadow_color 0px 0px 10px ;}
-#d_options input.color_chooser_checked{outline:1px solid white;}
+#d_options input.color_chooser{
+    background:black;
+    border: none;
+    width: 13px;
+    height: 13px;
+    padding: 0px;
+    margin: 0px;
+    vertical-align: middle;
+    margin-right:5px;
+    cursor:pointer;
+    font-weight: bold;
+    text-shadow:1px 1px white;
+    font-family: monospace;
+}
+#d_options input.color_chooser:hover,
+#d_options input.color_chooser_custom:hover{
+    box-shadow:@color_chooser_shadow_color 0px 0px 10px ;
+}
+#d_options input.color_chooser_checked{
+    outline:1px solid white;
+}
+#d_options input.color_chooser_custom{
+    border: 0px;
+    width: 42px;    
+    height: 13px;
+    vertical-align: middle;
+    font-size: 8px;
+}
 #web_qq{width:100%;}
 
 .ranger-wrapper{

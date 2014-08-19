@@ -12,10 +12,11 @@
     <!--<link rel="stylesheet" type="text/css" href="style.css">-->
 
     <script type="text/javascript" src="global.js"></script>
+    <script type="text/javascript" src="config/conf.js"></script>
     <!--<script type="text/javascript" src="lib/less-1.7.4.js"></script>-->
     <script type="text/javascript" src="lib/less-1.7.4.js"></script>
     <script type="text/javascript" src="lib/powerange.js"></script> 
-    <script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script> 
+    <script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>    
     <script type="text/javascript" src="app.js"></script>
     </head>
     <body>
@@ -85,7 +86,8 @@
                                 <input type="button" name="op_nav_bg_color" color_value="indigo" style="background:indigo" class="color_chooser" value=""/>
                                 <input type="button" name="op_nav_bg_color" color_value="purple" style="background:purple" class="color_chooser" value=""/>
                                 <input type="button" name="op_nav_bg_color" color_value="white" style="background:white" class="color_chooser" value=""/>
-                            </span>
+                                <input type="text" name="op_nav_bg_color_custom" placeholder="自定义" class="color_chooser_custom">
+                            </span>                        
                         </li>
                         <li><span class="label">字体颜色：</span>
                             <span>
@@ -131,7 +133,7 @@
             </div>
         </header>
         <div id="main">
-            <webview id="web_qq" src="http://w.qq.com"></webview>
+            <webview id="qq" src="http://w.qq.com"></webview>
         </div>
     </body>
 </html>
