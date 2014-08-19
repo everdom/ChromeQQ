@@ -192,6 +192,18 @@ $(document).ready(function(){
       }
     };
 
+    $("#f_nv_style input[name=op_nav_bg_color]").click(function(){
+      less.modifyVars({
+        '@bgcolor':$(this).css("background-color")
+      });      
+    });
+
+    $("#f_nv_style input[name=op_nav_font_color]").click(function(){
+      less.modifyVars({
+        '@fgcolor':$(this).css("background-color")
+      });
+    });
+
     window.onresize = function(){
       webview.style.width = window.innerWidth+"px";
       webview.style.height = (window.innerHeight-30)+"px";
