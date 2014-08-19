@@ -184,15 +184,11 @@ $(document).ready(function(){
       {
         isShowOption = true;
         $("#d_options").slideDown(500);
-        //this.style.color="black";
-        //this.style.backgroundColor="white";
       }
       else
       {
         isShowOption = false;
         $("#d_options").slideUp(500);
-        //this.style.color="white";
-        //this.style.backgroundColor="black";
       }
     };
 
