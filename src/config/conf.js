@@ -23,4 +23,3 @@ var settings = {
 		'height':620
 	}
 };
-

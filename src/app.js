@@ -183,24 +183,29 @@ $(document).ready(function(){
       if(!isShowOption)
       {
         isShowOption = true;
-        $("#d_options").slideDown(500);
+        $("#d_options").slideDown(700, "easeOutBounce");
       }
       else
       {
         isShowOption = false;
-        $("#d_options").slideUp(500);
+        $("#d_options").slideUp(300,"easeInExpo");
       }
     };
 
     $("#f_nv_style input[name=op_nav_bg_color]").click(function(){
+      settings.nav_style.bg_color = $(this).css("background-color")
       less.modifyVars({
-        '@bgcolor':$(this).css("background-color")
+        '@bg_color': settings.nav_style.bg_color,
+        '@fg_color':settings.nav_style.font_color
+
       });      
     });
 
     $("#f_nv_style input[name=op_nav_font_color]").click(function(){
+      settings.nav_style.font_color = $(this).css("background-color");
       less.modifyVars({
-        '@fgcolor':$(this).css("background-color")
+        '@bg_color': settings.nav_style.bg_color,
+        '@fg_color':settings.nav_style.font_color
       });
     });
 
