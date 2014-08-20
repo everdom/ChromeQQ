@@ -157,29 +157,35 @@ $(document).ready(function(){
       window.resizeTo(settings.smart_qq.width,settings.smart_qq.height);
     };
 
-    aWebQQ.onclick = function(){
+    aWebQQ.onclick = function(e){
       webview.src="http://web2.qq.com/webqq.html";
       window.resizeTo(settings.web_qq.width,settings.web_qq.height);
     };
 
-    aOptions.onmouseenter = function(){
+    function updateColor(elem, reverse)
+    {
       var bgColor = settings.nav_style.bg_color;
       var fontColor = settings.nav_style.font_color;
-      $(this).css("background-color", fontColor);
-      $(this).css("color", bgColor);
-    };
-
-    aOptions.onmouseleave = function(){
-      var bgColor = settings.nav_style.bg_color;
-      var fontColor = settings.nav_style.font_color;
-      if(!isShowOption)
-      {
-        $(this).css("background-color", bgColor);
-        $(this).css("color", fontColor);
+      if(!reverse)
+      {  
+        $(elem).css("background-color", bgColor);
+        $(elem).css("color", fontColor);
       }
+      else
+      {
+        $(elem).css("background-color", fontColor);
+        $(elem).css("color", bgColor);
+      }
+    }
+    aOptions.onmouseenter = function(e){
+      updateColor(this, true);
     };
 
-    aOptions.onclick = function(){      
+    aOptions.onmouseleave = function(e){
+      updateColor(this, isShowOption);
+    };
+
+    aOptions.onclick = function(e){      
       if(!isShowOption)
       {
         isShowOption = true;
@@ -192,23 +198,40 @@ $(document).ready(function(){
       }
     };
 
-    $("#f_nv_style input[name=op_nav_bg_color]").click(function(){
+    $("#f_nv_style input[name=op_nav_bg_color]").click(function(e){
       settings.nav_style.bg_color = $(this).css("background-color")
       less.modifyVars({
         '@bg_color': settings.nav_style.bg_color,
         '@fg_color':settings.nav_style.font_color
-
-      });      
+      });
+      updateColor(this, isShowOption);      
     });
 
-    $("#f_nv_style input[name=op_nav_font_color]").click(function(){
+    $("#f_nv_style input[name=op_nav_font_color]").click(function(e){
       settings.nav_style.font_color = $(this).css("background-color");
       less.modifyVars({
         '@bg_color': settings.nav_style.bg_color,
         '@fg_color':settings.nav_style.font_color
       });
+      updateColor(this, isShowOption);
     });
 
+    $("#f_nv_style input[name=op_nav_bg_color_custom]").click(
+      function(e) {
+        $(this).animate({
+          width: "42px"},
+          500);
+      }
+    ).mouseleave(
+      function(e) {
+        if(!$(this).val())
+        {
+          $(this).animate({
+            width: "13px"},
+            500);
+        }
+      }
+    );
     window.onresize = function(){
       webview.style.width = window.innerWidth+"px";
       webview.style.height = (window.innerHeight-30)+"px";
