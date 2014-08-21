@@ -1,7 +1,7 @@
 {
-    "name": "WebQQ",
+    "name": "ChromeQQ",
     "author":"everdom <everdom.g@gmail.com>",
-    "description": "WebQQ",
+    "description": "ChromeQQ",
     "version": "0.1",
     "manifest_version": 2,
     "app": {
