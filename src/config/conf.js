@@ -10,7 +10,7 @@ var settings = {
 	'nav_show':"always_show",
 	'nav_style':{
 		'bg_color':"rgba(110, 195, 244, 1)",
-		'font_color':"white",
+		'fg_color':"white",
 		'opacity':"0.9",
 		'height':30
 	},
