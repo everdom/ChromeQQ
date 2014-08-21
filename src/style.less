@@ -1,13 +1,42 @@
 @bg_color: rgba(110, 195, 244, 1);
 @fg_color: white;
+
+@nbg_color:rgba(255-red(@bg_color), 255-green(@bg_color), 255-blue(@bg_color), alpha(@bg_color));
+@nfg_color:rgba(255-red(@fg_color), 255-green(@fg_color), 255-blue(@fg_color), alpha(@fg_color));
+
 @text_color: @fg_color;
 @text_hover_color: @bg_color;
 @text_hover_bg: @fg_color;
 @shadow_color: fade(@bg_color, 50%);
-@color_chooser_shadow_color: @fg_color;
+
+@scrollbar_bg_color:fade(contrast(@nbg_color), 61.8%); 
+@scrollbar_bg_color_highlight:fade(contrast(@bg_color), 61.8%); 
+@scrollbar_bg_color_darklight:fade(contrast(@bg_color), 25%); 
+
+@nav_height:30px;
+@nav_padding:5px;
+
+@win_height:620px;
+@win_width:360px;
+
 body {
     margin: 0px;
     padding: 0px
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track { 
+}
+::-webkit-scrollbar-thumb {    
+    border-radius: 4px;
+    background: @scrollbar_bg_color;
+    border:1px solid @scrollbar_bg_color_darklight;
+    //-webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background:@scrollbar_bg_color_highlight;
 }
 header {
     width: 100%;
@@ -17,8 +46,8 @@ header {
 nav {
     background: @bg_color;
     width: 100%;
-    height: 20px;
-    padding: 5px;
+    height: @nav_height - @nav_padding * 2;
+    padding: @nav_padding;
     font-weight: bold;
     font-size: 16px;
     margin: 0px auto;
@@ -52,13 +81,13 @@ nav a:hover {
     display: none;
     z-index: 99;
     width: 100%;
-    overflow: hidden;
     border-radius: 0px 0px 10px 10px;
-    /* background: rgba(51, 51, 51, 0.9);
-    */
     background: @bg_color;
     box-shadow: @shadow_color 0px 10px 10px;
     position: fixed;
+    max-height: @win_height - @nav_height; 
+    overflow-x: hidden; 
+    overflow-y: auto;
 }
 #d_options fieldset {
     /* border: 1px dashed black;
@@ -78,7 +107,7 @@ nav a:hover {
 }
 #d_options li {
     line-height: 24px;
-    height: 24px;
+    min-height: 24px;
     clear: both;
 }
 #d_options li span {
@@ -112,13 +141,13 @@ nav a:hover {
     cursor: pointer;
     font-weight: bold;
     text-shadow: 1px 1px white;
-    font-family: monospace;
+    font-family: monospace;  
 }
 #d_options input.color_chooser:hover, #d_options input.color_chooser_custom:hover {
-    box-shadow: @color_chooser_shadow_color 0px 0px 10px;
+    box-shadow: contrast(@bg_color) 0px 0px 10px;    
 }
 #d_options input.color_chooser_checked {
-    outline: 1px solid white;
+    outline: 1px solid contrast(@bg_color);
 }
 #d_options input.color_chooser_custom {
     border: 0px;
