@@ -179,6 +179,7 @@ $(document).ready(function(){
     }
     aOptions.onmouseenter = function(e){
       updateColor(this, true);
+
     };
 
     aOptions.onmouseleave = function(e){
@@ -204,6 +205,7 @@ $(document).ready(function(){
         '@bg_color': settings.nav_style.bg_color,
         '@fg_color':settings.nav_style.font_color
       });
+
       updateColor(aOptions, isShowOption);      
     });
 
