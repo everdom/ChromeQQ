@@ -194,7 +194,7 @@ $(document).ready(function(){
       else
       {
         isShowOption = false;
-        $("#d_options").slideUp(300,"easeInExpo");
+        $("#d_options").slideUp(200,"easeInExpo");
       }
     };
 
@@ -213,7 +213,7 @@ $(document).ready(function(){
         '@bg_color': settings.nav_style.bg_color,
         '@fg_color':settings.nav_style.font_color
       });
-      updateColor(this, isShowOption);
+      updateColor(aOptions, isShowOption);
     });
 
     $("#f_nv_style input[name=op_nav_bg_color_custom]").click(
@@ -224,12 +224,18 @@ $(document).ready(function(){
       }
     ).mouseleave(
       function(e) {
-        if(!$(this).val())
+        if(!$(this).val() && document.activeElement != this)
         {
           $(this).animate({
             width: "13px"},
             500);
         }
+      }
+    ).blur(
+      function(e){
+       $(this).animate({
+          width: "13px"},
+          500);
       }
     );
     window.onresize = function(){
@@ -248,8 +254,7 @@ $(document).ready(function(){
         left = left <0 ? 0 : left;
         $(slider.handle).css("left", left);
         $(slider.slider).find(".range-quantity").css("width", left);
-      }
-      
+      }    
 
     };
 });
