@@ -8,6 +8,18 @@ $(document).ready(function() {
 
     // Logic code
 
+    // Setting code
+
+/*
+    if(localStorage.getItem('settings'))
+    {
+        C("=") localStorage.getItem('settings');
+    }
+    else
+    {
+
+    }
+    */
     // UI code
     var elems = document.querySelectorAll('.js-range');
     /*
@@ -109,6 +121,7 @@ $(document).ready(function() {
     }
 
 
+
     var width = window.innerWidth - 145;
     $(".ranger-wrapper").each(function() {
         $(this).css("width", width);
@@ -123,18 +136,18 @@ $(document).ready(function() {
         });
         $(this).prev("span").find("input[type=radio]").get(0).checked = true;
 
-    });
+    });    
 
     // WebView Events 
     webview.addEventListener("loadstart", function() {
-        document.title = settings.app.loading_text;
+        document.title = C("app.loading_text");
     });
 
     webview.addEventListener("loadstop", function() {
-        document.title = settings.app.title;
+        document.title = C("app.title");
         //indicator.innerText = "";
         webview.style.width = window.innerWidth + "px";
-        webview.style.height = (window.innerHeight - settings.nav_style.height) + "px";
+        webview.style.height = window.innerHeight - C("nav_style.height") + "px";
     });
 
     webview.addEventListener('newwindow', function(e) {
@@ -144,17 +157,17 @@ $(document).ready(function() {
     // UI Events
     aSmartQQ.onclick = function() {
         webview.src = "http://w.qq.com";
-        window.resizeTo(settings.smart_qq.width, settings.smart_qq.height);
+        window.resizeTo(C("smart_qq.width"), C("smart_qq.height"));
     };
 
     aWebQQ.onclick = function(e) {
         webview.src = "http://web2.qq.com/webqq.html";
-        window.resizeTo(settings.web_qq.width, settings.web_qq.height);
+        window.resizeTo(C("web_qq.width"), C("web_qq.height"));
     };
 
     function updateColor(elem, reverse) {
-        var bgColor = settings.nav_style.bg_color;
-        var fgColor = settings.nav_style.fg_color;
+        var bgColor = C("nav_style.bg_color");
+        var fgColor = C("nav_style.fg_color");
         if (!reverse) {
             $(elem).css("background-color", bgColor);
             $(elem).css("color", fgColor);
@@ -182,15 +195,15 @@ $(document).ready(function() {
         }
     };
 
-    $("#f_nv_style input[name=op_nav_bg_color]").click(function(e) {
-        settings.nav_style.bg_color = $(this).css("background-color")
+    $("#f_nv_style input[name=op_nav_style_bg_color]").click(function(e) {
+        C("nav_style.bg_color", $(this).css("background-color"));
         less.modifyVars({
-            '@bg_color': settings.nav_style.bg_color,
-            '@fg_color': settings.nav_style.fg_color
+            '@bg_color': C("nav_style.bg_color"),
+            '@fg_color': C("nav_style.fg_color")
         });
 
         updateColor(aOptions, isShowOption);
-        $(this).parent().find("input[name=op_nav_bg_color_custom]").val("")
+        $(this).parent().find("input[name=op_nav_style_bg_color_custom]").val("")
             .animate({
                     width: "13px"
                 },
@@ -199,11 +212,11 @@ $(document).ready(function() {
         $(this).addClass("color_chooser_checked");
     });
 
-    $("#f_nv_style input[name=op_nav_fg_color]").click(function(e) {
-        settings.nav_style.fg_color = $(this).css("background-color");
+    $("#f_nv_style input[name=op_nav_style_fg_color]").click(function(e) {
+        C("nav_style.fg_color", $(this).css("background-color"));
         less.modifyVars({
-            '@bg_color': settings.nav_style.bg_color,
-            '@fg_color': settings.nav_style.fg_color
+            '@bg_color': C("nav_style.bg_color"),
+            '@fg_color': C("nav_style.fg_color")
         });
         updateColor(aOptions, isShowOption);
 
@@ -211,18 +224,18 @@ $(document).ready(function() {
         $(this).addClass("color_chooser_checked");
     });
 
-    $("#f_nv_style input[name=op_nav_bg_color_custom]").click(
+    $("#f_nv_style input[name=op_nav_style_bg_color_custom]").click(
         function(e) {
             $(this).animate({
                     width: "42px"
                 },
                 500);
-        }
+        }        
     ).mouseleave(
         function(e) {
             if (!$(this).val() && document.activeElement != this) {
                 $(this).animate({
-                        width: "13px"
+                        width: "12px"
                     },
                     500);
             }
@@ -231,18 +244,24 @@ $(document).ready(function() {
         function(e) {
             if (!$(this).val()) {
                 $(this).animate({
-                        width: "13px"
+                        width: "12px"
                     },
                     500);
             }
+            C("nav_style.bg_color", $(this).val());
+            less.modifyVars({
+            '@bg_color': C("nav_style.bg_color"),
+            '@fg_color': C("nav_style.fg_color")
+            });
+            updateColor(aOptions, isShowOption);
         }
     ).keypress(function(e) {
         if(e.which == 13)
         {
-            settings.nav_style.bg_color = $(this).val();
+            C("nav_style.bg_color", $(this).val());
             less.modifyVars({
-            '@bg_color': settings.nav_style.bg_color,
-            '@fg_color': settings.nav_style.fg_color
+            '@bg_color': C("nav_style.bg_color"),
+            '@fg_color': C("nav_style.fg_color")
             });
             updateColor(aOptions, isShowOption);
         }
@@ -264,4 +283,12 @@ $(document).ready(function() {
         }
 
     };
+    // $(document).click(function(e){        
+    //     if(e.target != aOptions)
+    //     {
+    //         $(dOptions).slideUp(200, "easeInExpo");
+    //     }
+    // });
 });
+
+

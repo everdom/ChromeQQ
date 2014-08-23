@@ -1,1 +1,6 @@
-less = {fileAsync: true };
+less = {
+	fileAsync: true,
+	global:{
+		
+	}
+};

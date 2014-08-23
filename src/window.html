@@ -10,15 +10,16 @@
     <!--<link rel="stylesheet/less" type="text/css" href="style.less">-->
     <link rel="stylesheet/less" type="text/css" href="style.less">
     <!--<link rel="stylesheet" type="text/css" href="style.css">-->
-
-    <script type="text/javascript" src="global.js"></script>
+    
     <script type="text/javascript" src="config/conf.js"></script>
+    <!--<script type="text/javascript" src="global.js"></script>-->
     <!--<script type="text/javascript" src="lib/less-1.7.4.js"></script>-->
-    <script type="text/javascript" src="lib/less-1.7.4.js"></script>
+    
     <script type="text/javascript" src="lib/powerange.js"></script> 
     <script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="lib/jquery.easing.1.3.js"></script>
     <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="lib/less-1.7.4.js"></script>
     </head>
     <body>
         <header>
@@ -29,8 +30,8 @@
                     <ul>
                         <li>
                             <span class="label">默认启动：</span>
-                            <span><input type="radio" name="op_default" value="show_always"/></span><span class="radio_label">SmartQQ</span>
-                            <span><input type="radio" name="op_default" value="show_always"/></span><span class="radio_label">WebQQ</span>
+                            <span><input type="radio" name="op_global_default" value="smart_qq"/></span><span class="radio_label">SmartQQ</span>
+                            <span><input type="radio" name="op_global_default" value="web_qq"/></span><span class="radio_label">WebQQ</span>
                         </li>
 
                     </ul>
@@ -40,16 +41,16 @@
                     <legend>导航显示位置</legend>
                     <ul>
                         <li>
-                            <span><input type="radio" name="op_nav_pos" value="top"/></span>
+                            <span><input type="radio" name="op_nav_position" value="top"/></span>
                             <span class="radio_label">上</span>
 
-                            <span><input type="radio" name="op_nav_pos" value="bottom"/></span>
+                            <span><input type="radio" name="op_nav_position" value="bottom"/></span>
                             <span class="radio_label">下</span>
 
-                            <span><input type="radio" name="op_nav_pos" value="left"/></span>
+                            <span><input type="radio" name="op_nav_position" value="left"/></span>
                             <span class="radio_label">左</span>
 
-                            <span><input type="radio" name="op_nav_pos" value="right"/></span>
+                            <span><input type="radio" name="op_nav_position" value="right"/></span>
                             <span class="radio_label">右</span>
                         </li>
                     </ul>
@@ -59,7 +60,7 @@
                     <legend>导航显示方式</legend>
                     <ul>
                         <li>
-                            <span><input type="radio" name="op_nav_show" value="show_always"/></span>
+                            <span><input type="radio" name="op_nav_show" value="always_show"/></span>
                             <span class="radio_label">始终显示</span>
                         </li>
                         <li>
@@ -67,7 +68,7 @@
                             <span class="radio_label">自动隐藏</span>
                         </li>
                         <li>
-                            <span><input type="radio" name="op_nav_show" value="auto_hide"/></span>
+                            <span><input type="radio" name="op_nav_show" value="not_show"/></span>
                             <span class="radio_label">不显示（浮动显示设置按钮）</span>
                         </li>
                     </ul>
@@ -78,25 +79,25 @@
                     <ul>
                         <li><span class="label">背景颜色：</span>
                             <span>
-                                <input type="button" name="op_nav_bg_color" color_value="black" style="background:black" class="color_chooser color_chooser_checked"/>
-                                <input type="button" name="op_nav_bg_color" color_value="red" style="background:red" class="color_chooser" value=""/>
-                                <input type="button" name="op_nav_bg_color" color_value="orange" style="background:orange" class="color_chooser" value=""/>
-                                <input type="button" name="op_nav_bg_color" color_value="yellow" style="background:yellow" class="color_chooser" value=""/>
-                                <input type="button" name="op_nav_bg_color" color_value="green" style="background:green" class="color_chooser" value=""/>
-                                <input type="button" name="op_nav_bg_color" color_value="cyan" style="background:cyan" class="color_chooser" value=""/>
-                                <input type="button" name="op_nav_bg_color" color_value="indigo" style="background:indigo" class="color_chooser" value=""/>
-                                <input type="button" name="op_nav_bg_color" color_value="purple" style="background:purple" class="color_chooser" value=""/>
-                                <input type="button" name="op_nav_bg_color" color_value="white" style="background:white" class="color_chooser" value=""/>
-                                <input type="text" name="op_nav_bg_color_custom" placeholder="自定义" class="color_chooser_custom">
+                                <input type="button" name="op_nav_style_bg_color" style="background:black" class="color_chooser"/>
+                                <input type="button" name="op_nav_style_bg_color" style="background:red" class="color_chooser" value=""/>
+                                <input type="button" name="op_nav_style_bg_color" style="background:orange" class="color_chooser" value=""/>
+                                <input type="button" name="op_nav_style_bg_color" style="background:yellow" class="color_chooser" value=""/>
+                                <input type="button" name="op_nav_style_bg_color" style="background:green" class="color_chooser" value=""/>
+                                <input type="button" name="op_nav_style_bg_color" style="background:cyan" class="color_chooser" value=""/>
+                                <input type="button" name="op_nav_style_bg_color" style="background:indigo" class="color_chooser" value=""/>
+                                <input type="button" name="op_nav_style_bg_color" style="background:purple" class="color_chooser" value=""/>
+                                <input type="button" name="op_nav_style_bg_color" style="background:white" class="color_chooser" value=""/>
+                                <input type="text" name="op_nav_style_bg_color_custom" placeholder="自定义" class="color_chooser_custom">
                             </span>
-                            <div style="height:200px;height:200px">
+                            <div style="height:200px;height:200px; display:none; clear:both;">
                                 <canvas></canvas>
                             </div>                     
                         </li>
                         <li><span class="label">字体颜色：</span>
                             <span>
-                                <input type="button" name="op_nav_fg_color" color_value="black" style="background:black" class="color_chooser color_chooser_checked"/>
-                                <input type="button" name="op_nav_fg_color" color_value="white" style="background:white" class="color_chooser" value=""/>                                
+                                <input type="button" name="op_nav_style_fg_color" color_value="black" style="background:black" class="color_chooser color_chooser_checked"/>
+                                <input type="button" name="op_nav_style_fg_color" color_value="white" style="background:white" class="color_chooser" value=""/>                                
                             </span>
                         </li>
                         <li>
