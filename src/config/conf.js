@@ -3,8 +3,9 @@ var Conf = (function()
 {
 	var instance = null;
 
+	var settings = null;
 	// default settings.
-	var settings = {
+	var defaultSettings = {
 		'app':{
 			'title':"ChromeQQ",
 			'loading_text':"正在加载..."
@@ -17,23 +18,48 @@ var Conf = (function()
 		'nav_style':{
 			'bg_color':"rgb(110, 195, 244)",
 			'fg_color':"rgb(255, 255, 255)",
-			'opacity':"0.9",
-			'height':30
+			'opacity':{
+				'current':0.9,
+				'min':0.0,
+				'max':1.0
+			},
+			'height':{
+				'current':30,
+				'min':30,
+				'max':70,
+			},
 		},
 		'smart_qq':{
-			'width':360,
-			'height':620
+			'width':{
+				'current':360,
+				'min':250,
+				'max':screen.availWidth
+			},
+			'height':{
+				'current':620,
+				'min':272,
+				'max':screen.availHeight
+			},
 		},
 		'web_qq':{
-			'width':1000,
-			'height':620
+			'width':{
+				'current':1000,
+				'min':620,
+				'max':screen.availWidth
+			},
+			'height':{
+				'current':620,
+				'min':620,
+				'max':screen.availHeight
+			},
 		}
 	};
 
 	chrome.storage.sync.get("settings", function(items){
 	    if(!items.settings)
-	    {            
-	        chrome.storage.sync.set({'settings':settings});            
+	    {   
+	    	settings = defaultSettings;         
+	        chrome.storage.sync.set({'settings':defaultSettings});	        
 	    }
 	    else
 	    {
@@ -51,10 +77,15 @@ var Conf = (function()
 				}
 				var keyArr = key.split(".");
 				var testKey = null;
-				var testElem = settings;
+				var testElem = settings ? settings : defaultSettings;
 				for(var i=0; i<keyArr.length; i++)
 				{				
-					testKey = keyArr[i];						
+					testKey = keyArr[i];
+					if(!testElem)
+					{
+						//console.log("Conf get: null element with key:"+ key);
+						return null;
+					}						
 					if(testKey in testElem)
 					{
 						testElem = testElem[testKey];
@@ -88,6 +119,10 @@ var Conf = (function()
 				parentElem[testKey] = value;
 				//settings[key] = value;
 				chrome.storage.sync.set({'settings':settings});
+			},
+			resetSettings:function(){
+				settings = defaultSettings;         
+	        	chrome.storage.sync.set({'settings':defaultSettings});
 			}
 		}		
 	}
@@ -103,9 +138,14 @@ var Conf = (function()
 		},
 		load:function(fn){
 			onload = fn;
+		},
+		reset:function(){
+			resetSettings();
 		}
 	};
 })();
+
+
 var C = function()
 {   
     if(arguments.length == 1)
@@ -125,20 +165,53 @@ var C = function()
     }   
 }
 Conf.load(function(data){	
-	less.globalVars = {
-		bg_color:data.nav_style.bg_color,
-		fg_color:data.nav_style.fg_color
-	};
+	less.globalVars.nav_height = data.nav_style.height.current + "px";
+	less.globalVars.bg_color = data.nav_style.bg_color;
+	less.globalVars.fg_color = data.nav_style.fg_color;
+
+	var defaultqq = data.global.default;	
+	if(defaultqq == "smart_qq")
+	{
+		less.globalVars.win_width = data.smart_qq.width.current + "px";
+		less.globalVars.win_height = data.smart_qq.height.current + "px";
+	}
+	else if(defaultqq == "web_qq")
+	{
+		less.globalVars.win_width = data.web_qq.width.current + "px";
+		less.globalVars.win_height = data.web_qq.height.current + "px";
+	}
+	else
+	{
+		less.globalVars.win_width = "360px";
+		less.globalVars.win_height = "620px";
+	}
 	initSettings();
 });
+
 var less = {
-	fileAsync: true,
-	globalVars:{
-		bg_color: C("nav_style.bg_color"),
-		fg_color: C("nav_style.fg_color")
-	}
+	fileAsync:true,
+	globalVars:{},
 };
 
+var defaultqq = C("global.default");
+if(defaultqq == "smart_qq")
+{
+	less.globalVars.win_width = C("smart_qq.width.current") + "px";
+	less.globalVars.win_height = C("smart_qq.height.current") + "px";
+}
+else if(defaultqq == "web_qq")
+{
+	less.globalVars.win_width = C("web_qq.width.current") + "px";
+	less.globalVars.win_height = C("web_qq.height.current") + "px";
+}
+else
+{	
+	less.globalVars.win_width = "360px";
+	less.globalVars.win_height = "620px";
+}
+less.globalVars.nav_height = C("nav_style.height.current") + "px";
+less.globalVars.bg_color = C("nav_style.bg_color");
+less.globalVars.fg_color = C("nav_style.fg_color");
 
 function initSettings(){
     function checkRadio($radioElems, value)
@@ -169,7 +242,8 @@ function initSettings(){
                 $(this).removeClass('color_chooser_checked');
             }
         });
-    }    
+    }
+    
     var checkRadioArr = {
         'global_default':'global.default',
         'nav_position':'nav_position',

@@ -157,12 +157,12 @@ $(document).ready(function() {
     // UI Events
     aSmartQQ.onclick = function() {
         webview.src = "http://w.qq.com";
-        window.resizeTo(C("smart_qq.width"), C("smart_qq.height"));
+        window.resizeTo(C("smart_qq.width.current"), C("smart_qq.height.current"));
     };
 
     aWebQQ.onclick = function(e) {
         webview.src = "http://web2.qq.com/webqq.html";
-        window.resizeTo(C("web_qq.width"), C("web_qq.height"));
+        window.resizeTo(C("web_qq.width.current"), C("web_qq.height.current"));
     };
 
     function updateColor(elem, reverse) {
