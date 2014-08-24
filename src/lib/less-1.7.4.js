@@ -7929,6 +7929,9 @@ for (var i = 0; i < links.length; i++) {
     }
 }
 
+// This commant is added by everdom to create a onload event 2014/8/24
+less.onload = less.onload || function(e){}
+
 //
 // With this function, it's possible to alter variables and re-render
 // CSS without reloading less-files
@@ -7958,6 +7961,7 @@ less.refresh = function (reload, modifyVars) {
             log("less has finished. css generated in " + (new Date() - startTime) + 'ms', logLevel.info);
         }
         endTime = new Date();
+        less.onload(e);
     }, reload, modifyVars);
 
     loadStyles(modifyVars);

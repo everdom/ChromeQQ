@@ -90,17 +90,26 @@ $(document).ready(function() {
     oSliderValue.style.fontFamily = "serif";
     oSliderValue.style.lineHeight = "16px";
 
+    var width = window.innerWidth - 145;
 
-    var sliders = [];
+    $(".ranger-wrapper").each(function() {        
+        $(this).css("width", width);
+    });
+
+    sliders = [];
     for (var i = 0; i < elems.length; i++) {
+        // set initial value        
         sliders[i] = new Powerange(elems[i], sliderOptions[i]);
 
-        // set initial value
         var slider = sliders[i];
+
+        /*
         var left = (slider.options.start - slider.options.min) / (slider.options.max - slider.options.min) * width - 16;
         left = left < 0 ? 0 : left;
+
         $(slider.handle).css("left", left);
         $(slider.slider).find(".range-quantity").css("width", left);
+        */
 
         // add value text to slider handle
         var oSliderValue1 = $(oSliderValue).clone();
@@ -117,15 +126,9 @@ $(document).ready(function() {
         elems[i].onchange = function() {
             var oSliderValue = $(this).next(".range-bar").find('.slider_value');
             oSliderValue.text(this.value);
-        };
+        };                
     }
 
-
-
-    var width = window.innerWidth - 145;
-    $(".ranger-wrapper").each(function() {
-        $(this).css("width", width);
-    });
 
     // Event bindings
     $("span.radio_label").click(function() {
@@ -136,7 +139,7 @@ $(document).ready(function() {
         });
         $(this).prev("span").find("input[type=radio]").get(0).checked = true;
 
-    });    
+    });
 
     // WebView Events 
     webview.addEventListener("loadstart", function() {

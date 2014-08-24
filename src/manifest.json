@@ -24,6 +24,6 @@
     "sandbox":{
         "pages":["window.html"]
     },*/
-    "content_security_policy":"default-src 'self'; script-src 'self' 'unsafe-eval'; object-src 'self'",
+    //"content_security_policy":"default-src 'self'; script-src 'self' 'unsafe-eval'; object-src 'self'",
     "offline_enabled": true
 }

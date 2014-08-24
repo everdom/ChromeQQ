@@ -1600,7 +1600,7 @@ module.exports = Horizontal;
 function Horizontal() {
   Powerange.apply(this, arguments);
   if (this.options.step) this.step(this.slider.offsetWidth, this.handle.offsetWidth);
-  //this.setStart(this.options.start);  
+  this.setStart(this.options.start);  
 }
 
 /**
@@ -1621,7 +1621,9 @@ Horizontal.prototype.setStart = function(start) {
     , part = percentage.from(begin - this.options.min, this.options.max - this.options.min) || 0
     , offset = percentage.of(part, this.slider.offsetWidth - this.handle.offsetWidth)
     , position = (this.options.step) ? closest.find(offset, this.steps) : offset;
-
+console.log(offset);
+console.log(this.slider.offsetWidth);
+console.log(this.handle.offsetWidth);
   this.setPosition(position);
   this.setValue(this.handle.style.left, this.slider.offsetWidth - this.handle.offsetWidth);
 };

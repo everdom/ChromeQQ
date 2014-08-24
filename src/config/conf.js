@@ -191,8 +191,10 @@ Conf.load(function(data){
 var less = {
 	fileAsync:true,
 	globalVars:{},
+	onload:function(e){
+			
+	}
 };
-
 var defaultqq = C("global.default");
 if(defaultqq == "smart_qq")
 {
