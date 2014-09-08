@@ -19,9 +19,9 @@ var Conf = (function()
 			'bg_color':"rgb(110, 195, 244)",
 			'fg_color':"rgb(255, 255, 255)",
 			'opacity':{
-				'current':0.9,
-				'min':0.0,
-				'max':1.0
+				'current':90,
+				'min':0,
+				'max':100
 			},
 			'height':{
 				'current':30,
@@ -120,7 +120,7 @@ var Conf = (function()
 				//settings[key] = value;
 				chrome.storage.sync.set({'settings':settings});
 			},
-			resetSettings:function(){
+			reset:function(){
 				settings = defaultSettings;         
 	        	chrome.storage.sync.set({'settings':defaultSettings});
 			}
@@ -139,12 +139,8 @@ var Conf = (function()
 		load:function(fn){
 			onload = fn;
 		},
-		reset:function(){
-			resetSettings();
-		}
 	};
 })();
-
 
 var C = function()
 {   
@@ -164,7 +160,8 @@ var C = function()
         return false;
     }   
 }
-Conf.load(function(data){	
+
+Conf.load(function(data){
 	less.globalVars.nav_height = data.nav_style.height.current + "px";
 	less.globalVars.bg_color = data.nav_style.bg_color;
 	less.globalVars.fg_color = data.nav_style.fg_color;
@@ -185,7 +182,8 @@ Conf.load(function(data){
 		less.globalVars.win_width = "360px";
 		less.globalVars.win_height = "620px";
 	}
-	initSettings();
+	initSliders(data);
+	initSettings(data);
 });
 
 var less = {
@@ -215,6 +213,121 @@ less.globalVars.nav_height = C("nav_style.height.current") + "px";
 less.globalVars.bg_color = C("nav_style.bg_color");
 less.globalVars.fg_color = C("nav_style.fg_color");
 
+function initSliders(settings){
+	 // UI code
+    var elems = document.querySelectorAll('.js-range');
+
+
+    var sliderOptions = [{
+        klass: 'power-ranger',
+        min: settings.nav_style.opacity.min,
+        max: settings.nav_style.opacity.max,
+        start: settings.nav_style.opacity.current,
+        hideRange: true
+    }, {
+        klass: 'power-ranger',
+        min: settings.nav_style.height.min,
+        max: settings.nav_style.height.max,
+        start: settings.nav_style.height.current,
+        hideRange: true
+    }, {
+        klass: 'power-ranger',
+        min: settings.smart_qq.width.min,
+        max: settings.smart_qq.width.max,
+        start: settings.smart_qq.width.current,
+        hideRange: true
+    }, {
+        klass: 'power-ranger',
+        min: settings.smart_qq.height.min,
+        max: settings.smart_qq.height.max,
+        start: settings.smart_qq.height.current,
+        hideRange: true
+    }, {
+        klass: 'power-ranger',
+        min: settings.web_qq.width.min,
+        max: settings.web_qq.width.max,
+        start: settings.web_qq.width.current,
+        hideRange: true
+    }, {
+        klass: 'power-ranger',
+        min: settings.web_qq.height.min,
+        max: settings.web_qq.height.max,
+        start: settings.web_qq.height.current,
+        hideRange: true
+    }];
+
+    var oSliderValue = document.createElement("span");
+    oSliderValue.setAttribute("class", "slider_value");
+    oSliderValue.style.display = "none";
+    oSliderValue.style.fontSize = "8px";
+    oSliderValue.style.zIndex = "100";
+    oSliderValue.style.width = "24px";
+    oSliderValue.style.height = "16px";
+    oSliderValue.style.textAlign = "center";
+    oSliderValue.style.marginLeft = "-4px";
+    oSliderValue.style.color = "black";
+    oSliderValue.style.fontFamily = "serif";
+    oSliderValue.style.lineHeight = "16px";
+
+    var width = window.innerWidth - 145;
+
+    $(".ranger-wrapper").each(function() {        
+        $(this).css("width", width);
+    });
+
+    sliders = [];
+    for (var i = 0; i < elems.length; i++) {
+        // set initial value        
+        sliders[i] = new Powerange(elems[i], sliderOptions[i]);
+
+        var slider = sliders[i];
+
+        
+        var left = (slider.options.start - slider.options.min) / (slider.options.max - slider.options.min) * width - 16;
+        left = left < 0 ? 0 : left;
+
+        $(slider.handle).css("left", left);
+        $(slider.slider).find(".range-quantity").css("width", left);
+        
+
+        // add value text to slider handle
+        var oSliderValue1 = $(oSliderValue).clone();
+        $(oSliderValue1).text(slider.options.start);
+
+        $(slider.handle).append(oSliderValue1);
+
+        var isSliderDrag = false;
+        $(slider.handle).mouseover(function() {
+        	if(isSliderDrag == false)
+        	{
+            	$(this).find("span.slider_value").css("display", "inline");
+            }
+        });
+
+        $(slider.handle).mouseout(function() {
+        	if(isSliderDrag == false)
+        	{
+            	$(this).find("span.slider_value").css("display", "none");
+        	}
+        });
+
+        $(slider.handle).mousedown(function() {
+        	isSliderDrag = true;
+            $(this).find("span.slider_value").css("display", "inline");
+        });
+        $(document).mouseup(function() {
+        	isSliderDrag = false;
+            $("span.slider_value").css("display", "none");
+        });
+    
+
+        // change value text when slide the handle
+        elems[i].onchange = function() {
+            var oSliderValue = $(this).next(".range-bar").find('.slider_value');
+            oSliderValue.text(this.value);
+        };                
+    }
+}
 function initSettings(){
     function checkRadio($radioElems, value)
     {
