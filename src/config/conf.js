@@ -257,17 +257,25 @@ function initSliders(settings){
     }];
 
     var oSliderValue = document.createElement("span");
-    oSliderValue.setAttribute("class", "slider_value");
-    oSliderValue.style.display = "none";
-    oSliderValue.style.fontSize = "8px";
-    oSliderValue.style.zIndex = "100";
-    oSliderValue.style.width = "24px";
-    oSliderValue.style.height = "16px";
-    oSliderValue.style.textAlign = "center";
-    oSliderValue.style.marginLeft = "-4px";
-    oSliderValue.style.color = "black";
-    oSliderValue.style.fontFamily = "serif";
-    oSliderValue.style.lineHeight = "16px";
+    $(oSliderValue).addClass("slider_value");
+    $(oSliderValue).css({
+    	"font-size": "8px",
+    	"z-index": "100",
+    	"width": "36px",
+    	"height": "16px",
+    	"text-align": "center",
+    	"margin-left": "-10px",
+    	"color": "black",    
+    	"line-height": "16px",
+    	"position": "relative",
+    	"margin-top": "-15px",
+    	"display": "none",
+    	"border-top-left-radius": "3px",
+    	"border-top-right-radius": "3px",
+    	"border-bottom-right-radius": "3px",
+    	"border-bottom-left-radius": "3px",
+    	"background": "rgb(255, 255, 255)"
+   	});
 
     var width = window.innerWidth - 145;
 
