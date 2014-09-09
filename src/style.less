@@ -1,3 +1,4 @@
+@bg_color_alpha:fade(@bg_color,@bg_opacity);
 @nbg_color:rgba(255-red(@bg_color), 255-green(@bg_color), 255-blue(@bg_color), alpha(@bg_color));
 @nfg_color:rgba(255-red(@fg_color), 255-green(@fg_color), 255-blue(@fg_color), alpha(@fg_color));
 
@@ -39,7 +40,7 @@ header {
     color: @text_color;
 }
 nav {
-    background: @bg_color;
+    background: @bg_color_alpha;
     width: 100%;
     height: @nav_height - @nav_padding * 2;
     padding: @nav_padding;
@@ -74,7 +75,7 @@ nav a:hover {
     z-index: 99;
     width: 100%;
     border-radius: 0px 0px 10px 10px;
-    background: @bg_color;
+    background: @bg_color_alpha;
     box-shadow: @shadow_color 0px 10px 10px;
     position: fixed;
     max-height: @win_height - @nav_height - 3; 
@@ -133,10 +134,10 @@ nav a:hover {
     border:1px solid rgba(128,128,128,0.2);
 }
 #d_options input.color_chooser:hover, #d_options input.color_chooser_custom:hover {
-    box-shadow: contrast(@bg_color) 0px 0px 10px;    
+    box-shadow: contrast(@bg_color_alpha) 0px 0px 10px;    
 }
 #d_options input.color_chooser_checked {
-    outline: 1px solid contrast(@bg_color);
+    outline: 1px solid contrast(@bg_color_alpha);
 }
 #d_options input.color_chooser_custom {
     border: 1px solid rgba(128,128,128,0.2);
@@ -170,5 +171,5 @@ nav a:hover {
     height: 2px;
 }
 span.radio_label:hover {
-    text-shadow: 0px 0px 5px contrast(@bg_color);
+    text-shadow: 0px 0px 5px contrast(@bg_color_alpha);
 }

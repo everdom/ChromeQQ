@@ -19,7 +19,7 @@ var Conf = (function()
 			'bg_color':"rgb(110, 195, 244)",
 			'fg_color':"rgb(255, 255, 255)",
 			'opacity':{
-				'current':90,
+				'current':80,
 				'min':0,
 				'max':100
 			},
@@ -161,10 +161,11 @@ var C = function()
     }   
 }
 
-Conf.load(function(data){
+Conf.load(function(data){	
 	less.globalVars.nav_height = data.nav_style.height.current + "px";
 	less.globalVars.bg_color = data.nav_style.bg_color;
 	less.globalVars.fg_color = data.nav_style.fg_color;
+	less.globalVars.bg_opacity = data.nav_style.opacity.current + "%";
 
 	var defaultqq = data.global.default;	
 	if(defaultqq == "smart_qq")
@@ -185,6 +186,7 @@ Conf.load(function(data){
 	initSliders(data);
 	initSettings(data);
 });
+
 
 var less = {
 	fileAsync:true,
@@ -211,6 +213,7 @@ else
 }
 less.globalVars.nav_height = C("nav_style.height.current") + "px";
 less.globalVars.bg_color = C("nav_style.bg_color");
+less.globalVars.bg_opacity = C("nav_style.opacity.current") + "%";
 less.globalVars.fg_color = C("nav_style.fg_color");
 
 function initSliders(settings){
@@ -333,6 +336,8 @@ function initSliders(settings){
         elems[i].onchange = function() {
             var oSliderValue = $(this).next(".range-bar").find('.slider_value');
             oSliderValue.text(this.value);
+            var bindKey = this.bindKey;
+            //C(bindKey, this.value);  
         };                
     }
 }
