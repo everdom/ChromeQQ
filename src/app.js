@@ -4,23 +4,7 @@ $(document).ready(function() {
     var aWebQQ = document.getElementById("a_web_qq");
     var aOptions = document.getElementById("a_options");
     var dOptions = document.getElementById("d_options");
-    var isShowOption = false;
-
-    // Logic code
-
-    // Setting code
-
-/*
-    if(localStorage.getItem('settings'))
-    {
-        C("=") localStorage.getItem('settings');
-    }
-    else
-    {
-
-    }
-    */
-    
+    var isShowOption = false; 
 
 
     // Event bindings
@@ -108,13 +92,50 @@ $(document).ready(function() {
         $(this).addClass("color_chooser_checked");
     });
 
-    $("#f_nv_style input[name=op_nav_style_fg_color]").click(function(e) {
+    function setBgColor(bgColor, isCheck)
+    {        
+        var colorReg = [
+            /^\s*(rgb\(\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\))\s*$/i,
+            /^\s*#([0-9a-f]{3})\s*$/i,
+            /^\s*#([0-9a-f]{6})\s*$/i
+        ];
+        if(isCheck)
+        {
+            for(var i in colorReg)
+            {
+                if(colorReg[i].test(bgColor))
+                {
+                    C("nav_style.bg_color", bgColor);
+                    less.modifyVars({
+                        '@bg_color': C("nav_style.bg_color"),
+                        '@fg_color': C("nav_style.fg_color")
+                    });
+                    updateColor(aOptions, isShowOption);
+                    return true;                     
+                }
+            }
+            console.log("can't adapt to color format");
+            return false;
+                  
+        }
+        else
+        {
+            C("nav_style.bg_color", bgColor);
+            less.modifyVars({
+                '@bg_color': C("nav_style.bg_color"),
+                '@fg_color': C("nav_style.fg_color")
+            });
+            updateColor(aOptions, isShowOption);
+            return true;
+        }        
+    }
+    $("#f_nv_style input[name=op_nav_style_fg_color]").click(function(e) {        
         C("nav_style.fg_color", $(this).css("background-color"));
-        less.modifyVars({
-            '@bg_color': C("nav_style.bg_color"),
-            '@fg_color': C("nav_style.fg_color")
-        });
-        updateColor(aOptions, isShowOption);
+            less.modifyVars({
+                '@bg_color': C("nav_style.bg_color"),
+                '@fg_color': C("nav_style.fg_color")
+            });
+            updateColor(aOptions, isShowOption);
 
         $(this).parent().find("input").removeClass('color_chooser_checked');
         $(this).addClass("color_chooser_checked");
@@ -144,24 +165,32 @@ $(document).ready(function() {
                     },
                     500);
             }
-            C("nav_style.bg_color", $(this).val());
-            less.modifyVars({
-            '@bg_color': C("nav_style.bg_color"),
-            '@fg_color': C("nav_style.fg_color")
-            });
-            updateColor(aOptions, isShowOption);
+
+            if(!setBgColor($(this).val(), true))
+            {
+                $(this).css("outline", "2px solid red");
+                $(this).select();
+            }
+            else
+            {
+                $(this).css("outline", "none");   
+            }
         }
     ).keypress(function(e) {
         if(e.which == 13)
         {
-            C("nav_style.bg_color", $(this).val());
-            less.modifyVars({
-            '@bg_color': C("nav_style.bg_color"),
-            '@fg_color': C("nav_style.fg_color")
-            });
-            updateColor(aOptions, isShowOption);
+            if(!setBgColor($(this).val(), true))
+            {
+                $(this).css("outline", "2px solid red");
+                $(this).select();
+            }
+            else
+            {
+                $(this).css("outline", "none");   
+            }
         }
-    });;
+    });
+
     window.onresize = function() {
         webview.style.width = window.innerWidth + "px";
         webview.style.height = (window.innerHeight - 30) + "px";
