@@ -1,6 +1,0 @@
-less = {
-	fileAsync: true,
-	global:{
-		
-	}
-};

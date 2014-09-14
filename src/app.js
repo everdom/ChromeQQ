@@ -1,3 +1,16 @@
+function switchQQ(webview, type)
+{
+    if(type == "web_qq")
+    {
+        webview.src = C('web_qq.url');
+        window.resizeTo(C("web_qq.width.current"), C("web_qq.height.current"));
+    }
+    else
+    {
+        webview.src = C('smart_qq.url');
+        window.resizeTo(C("smart_qq.width.current"), C("smart_qq.height.current"));
+    }    
+}
 $(document).ready(function() {
     var webview = document.getElementById("qq");
     var aSmartQQ = document.getElementById("a_smart_qq");
@@ -7,6 +20,8 @@ $(document).ready(function() {
     var isShowOption = false; 
 
 
+    switchQQ(webview, C("global.default"));
+    
     // Event bindings
     // bind radio input control choose event to radio label click event.
     $("span.radio_label").click(function() {

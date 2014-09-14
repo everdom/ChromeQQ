@@ -13,7 +13,7 @@ var Conf = (function(reset)
 			'version':"0.1",
 		},
 		'global':{
-			'default':"smart_qq",			
+			'default':"web_qq",			
 		},
 		'nav_position':"top",
 		'nav_show':"always_show",
@@ -81,7 +81,7 @@ var Conf = (function(reset)
 		    onload(settings);
 		});
 	}
-			
+
 	function __construct(){
 		return{
 			get:function(key){

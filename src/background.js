@@ -1,8 +1,11 @@
-chrome.app.runtime.onLaunched.addListener(function() {
-    chrome.app.window.create('window.html', {
-        'bounds': {
-            'width': 360,
-            'height': 620
-        }
-  });
+seajs.config({
+	base: "./",	
+	alias:{
+		"defaultConfig":"config/default.config.js"
+	}
 });
+
+seajs.use("./main", function(main){
+	main.launch();
+});
+
