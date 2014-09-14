@@ -1,5 +1,6 @@
 //console.log(C("nav_style.bg_color"));
-var Conf = (function()
+var reset = true;
+var Conf = (function(reset)
 {
 	var instance = null;
 
@@ -8,10 +9,11 @@ var Conf = (function()
 	var defaultSettings = {
 		'app':{
 			'title':"ChromeQQ",
-			'loading_text':"正在加载..."
-		},		
+			'loading_text':"正在加载...",
+			'version':"0.1",
+		},
 		'global':{
-			'default':"smart_qq",
+			'default':"smart_qq",			
 		},
 		'nav_position':"top",
 		'nav_show':"always_show",
@@ -19,7 +21,7 @@ var Conf = (function()
 			'bg_color':"rgb(110, 195, 244)",
 			'fg_color':"rgb(255, 255, 255)",
 			'opacity':{
-				'current':80,
+				'current':100,
 				'min':0,
 				'max':100
 			},
@@ -30,6 +32,7 @@ var Conf = (function()
 			},
 		},
 		'smart_qq':{
+			'url': "http://w.qq.com",
 			'width':{
 				'current':360,
 				'min':250,
@@ -42,6 +45,7 @@ var Conf = (function()
 			},
 		},
 		'web_qq':{
+			'url': "http://web2.qq.com/webqq.html",
 			'width':{
 				'current':1000,
 				'min':620,
@@ -55,19 +59,29 @@ var Conf = (function()
 		}
 	};
 
-	chrome.storage.sync.get("settings", function(items){
-	    if(!items.settings)
-	    {   
-	    	settings = defaultSettings;         
-	        chrome.storage.sync.set({'settings':defaultSettings});	        
-	    }
-	    else
-	    {
-	        settings = items.settings;
-	    }
-	    onload(settings);
-	});
+	load(reset);
 
+	function load(reset)
+	{
+		if(reset)
+		{
+			settings = defaultSettings;         
+		    chrome.storage.sync.set({'settings':defaultSettings});
+		}		
+		chrome.storage.sync.get("settings", function(items){
+		    if(!items.settings)
+		    {   
+		    	settings = defaultSettings;         
+		        chrome.storage.sync.set({'settings':defaultSettings});	        
+		    }
+		    else
+		    {
+		        settings = items.settings;
+		    }
+		    onload(settings);
+		});
+	}
+			
 	function __construct(){
 		return{
 			get:function(key){
@@ -119,10 +133,6 @@ var Conf = (function()
 				parentElem[testKey] = value;
 				//settings[key] = value;
 				chrome.storage.sync.set({'settings':settings});
-			},
-			reset:function(){
-				settings = defaultSettings;         
-	        	chrome.storage.sync.set({'settings':defaultSettings});
 			}
 		}		
 	}
@@ -138,9 +148,9 @@ var Conf = (function()
 		},
 		load:function(fn){
 			onload = fn;
-		},
+		},		
 	};
-})();
+})(reset);
 
 var C = function()
 {   

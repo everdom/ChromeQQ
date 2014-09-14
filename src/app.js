@@ -8,6 +8,7 @@ $(document).ready(function() {
 
 
     // Event bindings
+    // bind radio input control choose event to radio label click event.
     $("span.radio_label").click(function() {
         var prevRadio = $(this).prev("span").find("input[type=radio]");
 
@@ -18,6 +19,7 @@ $(document).ready(function() {
 
     });
 
+    // UI Events
     // WebView Events 
     webview.addEventListener("loadstart", function() {
         document.title = C("app.loading_text");
@@ -34,28 +36,19 @@ $(document).ready(function() {
         window.open(e.targetUrl);
     });
 
-    // UI Events
+    // switch button event
     aSmartQQ.onclick = function() {
-        webview.src = "http://w.qq.com";
+        webview.src = C('smart_qq.url');
         window.resizeTo(C("smart_qq.width.current"), C("smart_qq.height.current"));
     };
 
     aWebQQ.onclick = function(e) {
-        webview.src = "http://web2.qq.com/webqq.html";
+        webview.src = C("web_qq.url");
         window.resizeTo(C("web_qq.width.current"), C("web_qq.height.current"));
     };
+    
 
-    function updateColor(elem, reverse) {
-        var bgColor = C("nav_style.bg_color");
-        var fgColor = C("nav_style.fg_color");
-        if (!reverse) {
-            $(elem).css("background-color", bgColor);
-            $(elem).css("color", fgColor);
-        } else {
-            $(elem).css("background-color", fgColor);
-            $(elem).css("color", bgColor);
-        }
-    }
+    // option button event
     aOptions.onmouseenter = function(e) {
         updateColor(this, true);
 
@@ -75,6 +68,7 @@ $(document).ready(function() {
         }
     };
 
+    // setting background color event
     $("#f_nv_style input[name=op_nav_style_bg_color]").click(function(e) {
         C("nav_style.bg_color", $(this).css("background-color"));
         less.modifyVars({
@@ -92,55 +86,7 @@ $(document).ready(function() {
         $(this).addClass("color_chooser_checked");
     });
 
-    function setBgColor(bgColor, isCheck)
-    {        
-        var colorReg = [
-            /^\s*(rgb\(\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\))\s*$/i,
-            /^\s*#([0-9a-f]{3})\s*$/i,
-            /^\s*#([0-9a-f]{6})\s*$/i
-        ];
-        if(isCheck)
-        {
-            for(var i in colorReg)
-            {
-                if(colorReg[i].test(bgColor))
-                {
-                    C("nav_style.bg_color", bgColor);
-                    less.modifyVars({
-                        '@bg_color': C("nav_style.bg_color"),
-                        '@fg_color': C("nav_style.fg_color")
-                    });
-                    updateColor(aOptions, isShowOption);
-                    return true;                     
-                }
-            }
-            console.log("can't adapt to color format");
-            return false;
-                  
-        }
-        else
-        {
-            C("nav_style.bg_color", bgColor);
-            less.modifyVars({
-                '@bg_color': C("nav_style.bg_color"),
-                '@fg_color': C("nav_style.fg_color")
-            });
-            updateColor(aOptions, isShowOption);
-            return true;
-        }        
-    }
-    $("#f_nv_style input[name=op_nav_style_fg_color]").click(function(e) {        
-        C("nav_style.fg_color", $(this).css("background-color"));
-            less.modifyVars({
-                '@bg_color': C("nav_style.bg_color"),
-                '@fg_color': C("nav_style.fg_color")
-            });
-            updateColor(aOptions, isShowOption);
-
-        $(this).parent().find("input").removeClass('color_chooser_checked');
-        $(this).addClass("color_chooser_checked");
-    });
-
+    // setting customed background color event
     $("#f_nv_style input[name=op_nav_style_bg_color_custom]").click(
         function(e) {
             $(this).animate({
@@ -189,9 +135,24 @@ $(document).ready(function() {
                 $(this).css("outline", "none");   
             }
         }
+    });    
+
+    // setting frontground color event
+    $("#f_nv_style input[name=op_nav_style_fg_color]").click(function(e) {        
+        C("nav_style.fg_color", $(this).css("background-color"));
+            less.modifyVars({
+                '@bg_color': C("nav_style.bg_color"),
+                '@fg_color': C("nav_style.fg_color")
+            });
+            updateColor(aOptions, isShowOption);
+
+        $(this).parent().find("input").removeClass('color_chooser_checked');
+        $(this).addClass("color_chooser_checked");
     });
 
+
     window.onresize = function() {
+        $("#d_options").css("display","block");
         webview.style.width = window.innerWidth + "px";
         webview.style.height = (window.innerHeight - 30) + "px";
         $(".ranger-wrapper").each(function() {
@@ -206,6 +167,7 @@ $(document).ready(function() {
             $(slider.handle).css("left", left);
             $(slider.slider).find(".range-quantity").css("width", left);
         }
+        $("#d_options").css("display","none");
 
     };
     // $(document).click(function(e){        
@@ -217,3 +179,53 @@ $(document).ready(function() {
 });
 
 
+function setBgColor(bgColor, isCheck)
+{        
+    var colorReg = [
+        /^\s*(rgb\(\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\))\s*$/i,
+        /^\s*#([0-9a-f]{3})\s*$/i,
+        /^\s*#([0-9a-f]{6})\s*$/i
+    ];
+    if(isCheck)
+    {
+        for(var i in colorReg)
+        {
+            if(colorReg[i].test(bgColor))
+            {
+                C("nav_style.bg_color", bgColor);
+                less.modifyVars({
+                    '@bg_color': C("nav_style.bg_color"),
+                    '@fg_color': C("nav_style.fg_color")
+                });
+                updateColor(aOptions, isShowOption);
+                return true;                     
+            }
+        }
+        console.log("can't adapt to color format");
+        return false;
+              
+    }
+    else
+    {
+        C("nav_style.bg_color", bgColor);
+        less.modifyVars({
+            '@bg_color': C("nav_style.bg_color"),
+            '@fg_color': C("nav_style.fg_color")
+        });
+        updateColor(aOptions, isShowOption);
+        return true;
+    }        
+}
+
+function updateColor(elem, reverse) 
+{
+    var bgColor = C("nav_style.bg_color");
+    var fgColor = C("nav_style.fg_color");
+    if (!reverse) {
+        $(elem).css("background-color", bgColor);
+        $(elem).css("color", fgColor);
+    } else {
+        $(elem).css("background-color", fgColor);
+        $(elem).css("color", bgColor);
+    }
+}
