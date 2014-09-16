@@ -1,14 +1,9 @@
-
-
 $(document).ready(function() {
     var webview = document.getElementById("qq");
     var aSmartQQ = document.getElementById("a_smart_qq");
     var aWebQQ = document.getElementById("a_web_qq");
     var aOptions = document.getElementById("a_options");
-    var dOptions = document.getElementById("d_options");
-    
-
-    //switchQQ(webview, C("global.default"));
+    var dOptions = document.getElementById("d_options");    
     
     // Event bindings
     // bind radio input control choose event to radio label click event.
@@ -71,6 +66,7 @@ $(document).ready(function() {
     };
 
 
+    // setting default boot
     $("span.radio_label").click(function() {            
         $(this).prev("span").find("input[type=radio]").change();
 
@@ -79,10 +75,19 @@ $(document).ready(function() {
     $("input[name=op_global_default]").click(function(){
         $(this).change();
     });
-
-    // setting global    
+    
     $("input[name=op_global_default]").change(function(){
         C("global.default", $(this).val());
+    });
+
+    // setting nav position
+    $("input[name=op_nav_position]").change(function(){
+        C("nav_position", $(this).val());
+    });
+
+    // setting nav show style
+     $("input[name=op_nav_show]").change(function(){
+        C("nav_show", $(this).val());
     });
 
     // setting background color event
@@ -168,6 +173,8 @@ $(document).ready(function() {
     });
 
 
+    // setting nav opacity
+    
     window.onresize = function() {
         $("#d_options").css("display","block");
         webview.style.width = window.innerWidth + "px";
