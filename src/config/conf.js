@@ -1,5 +1,5 @@
 //console.log(C("nav_style.bg_color"));
-var reset = true;
+var reset = false;
 var Conf = (function(reset)
 {
 	var instance = null;
@@ -70,9 +70,9 @@ var Conf = (function(reset)
 		}		
 		chrome.storage.sync.get("settings", function(items){
 		    if(!items.settings)
-		    {   
+		    {
 		    	settings = defaultSettings;         
-		        chrome.storage.sync.set({'settings':defaultSettings});	        
+		        //chrome.storage.sync.set({'settings':defaultSettings});	        
 		    }
 		    else
 		    {
@@ -226,6 +226,89 @@ less.globalVars.bg_color = C("nav_style.bg_color");
 less.globalVars.bg_opacity = C("nav_style.opacity.current") + "%";
 less.globalVars.fg_color = C("nav_style.fg_color");
 
+
+var isShowOption = false;
+function switchQQ(webview, type)
+{
+    toggleOptionPanel(false);
+    updateColor("#a_options", false);    
+    if(type == "web_qq")
+    {
+        webview.src = C('web_qq.url');
+        window.resizeTo(C("web_qq.width.current"), C("web_qq.height.current"));
+    }
+    else
+    {
+        webview.src = C('smart_qq.url');
+        window.resizeTo(C("smart_qq.width.current"), C("smart_qq.height.current"));
+    }    
+}
+
+function toggleOptionPanel(open)
+{
+    if(open)
+    {
+        isShowOption = true;
+        $("#d_options").slideDown(700, "easeOutBounce");
+    }
+    else
+    {
+        isShowOption = false;
+        $("#d_options").slideUp(200, "easeInExpo");
+    }    
+}
+function setBgColor(bgColor, isCheck)
+{        
+    var colorReg = [
+        /^\s*(rgb\(\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\))\s*$/i,
+        /^\s*#([0-9a-f]{3})\s*$/i,
+        /^\s*#([0-9a-f]{6})\s*$/i
+    ];
+    if(isCheck)
+    {
+        for(var i in colorReg)
+        {
+            if(colorReg[i].test(bgColor))
+            {
+                C("nav_style.bg_color", bgColor);
+                less.modifyVars({
+                    '@bg_color': C("nav_style.bg_color"),
+                    '@fg_color': C("nav_style.fg_color")
+                });
+                updateColor(aOptions, isShowOption);
+                return true;                     
+            }
+        }
+        console.log("can't adapt to color format");
+        return false;
+              
+    }
+    else
+    {
+        C("nav_style.bg_color", bgColor);
+        less.modifyVars({
+            '@bg_color': C("nav_style.bg_color"),
+            '@fg_color': C("nav_style.fg_color")
+        });
+        updateColor(aOptions, isShowOption);
+        return true;
+    }        
+}
+
+function updateColor(elem, reverse) 
+{
+    var bgColor = C("nav_style.bg_color");
+    var fgColor = C("nav_style.fg_color");
+    if (!reverse) {
+        $(elem).css("background-color", bgColor);
+        $(elem).css("color", fgColor);
+    } else {
+        $(elem).css("background-color", fgColor);
+        $(elem).css("color", bgColor);
+    }
+}
+
+
 function initSliders(settings){
 	 // UI code
     var elems = document.querySelectorAll('.js-range');
@@ -351,7 +434,7 @@ function initSliders(settings){
         };                
     }
 }
-function initSettings(){
+function initSettings(settings){
     function checkRadio($radioElems, value)
     {
         $radioElems.each(function(){            
@@ -381,6 +464,9 @@ function initSettings(){
             }
         });
     }
+
+	var webview = document.getElementById("qq");
+    switchQQ(webview, settings.global.default);
     
     var checkRadioArr = {
         'global_default':'global.default',
@@ -402,3 +488,4 @@ function initSettings(){
         checkColorChoser($(eleStr), C(checkColorArr[name]));
     }
 }
+
