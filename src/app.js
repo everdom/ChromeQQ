@@ -176,9 +176,9 @@ $(document).ready(function() {
     // setting nav opacity
     
     window.onresize = function() {
-        $("#d_options").css("display","block");
+        //$("#d_options").css("display","block");
         webview.style.width = window.innerWidth + "px";
-        webview.style.height = (window.innerHeight - 30) + "px";
+        webview.style.height = (window.innerHeight - C("nav_style.height.current")) + "px";
         $(".ranger-wrapper").each(function() {
             var width = window.innerWidth - 145;
             $(this).css("width", width);
@@ -191,7 +191,15 @@ $(document).ready(function() {
             $(slider.handle).css("left", left);
             $(slider.slider).find(".range-quantity").css("width", left);
         }
-        $("#d_options").css("display","none");
+        less.globalVars.win_height = window.innerHeight;        
+        less.globalVars.win_width = window.innerWidth;
+        less.modifyVars({
+            '@win_height': window.innerHeight,
+            '@win_width': window.innerWidth,
+        });
+        //toggleOptionPanel(false);
+        //updateColor("#a_options", false);   
+        //$("#d_options").css("display","none");
 
     };
     // $(document).click(function(e){        

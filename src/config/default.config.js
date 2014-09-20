@@ -4,9 +4,10 @@ define(function(require, exports, module){
 			'title':"ChromeQQ",
 			'loading_text':"正在加载...",
 			'version':"0.1",
+			'current':"smart_qq"
 		},
 		'global':{
-			'default':"smart_qq",			
+			'default':"smart_qq"
 		},
 		'nav_position':"top",
 		'nav_show':"always_show",

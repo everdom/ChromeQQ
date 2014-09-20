@@ -11,9 +11,10 @@ var Conf = (function(reset)
 			'title':"ChromeQQ",
 			'loading_text':"正在加载...",
 			'version':"0.1",
+			'current':"smart_qq"
 		},
 		'global':{
-			'default':"smart_qq",			
+			'default':"smart_qq"
 		},
 		'nav_position':"top",
 		'nav_show':"always_show",
@@ -231,14 +232,16 @@ var isShowOption = false;
 function switchQQ(webview, type)
 {
     toggleOptionPanel(false);
-    updateColor("#a_options", false);    
+    updateColor("#a_options", false);
     if(type == "web_qq")
     {
+    	C("app.current", "web_qq");
         webview.src = C('web_qq.url');
         window.resizeTo(C("web_qq.width.current"), C("web_qq.height.current"));
     }
     else
     {
+    	C("app.current", "smart_qq");
         webview.src = C('smart_qq.url');
         window.resizeTo(C("smart_qq.width.current"), C("smart_qq.height.current"));
     }    
@@ -299,7 +302,7 @@ function updateColor(elem, reverse)
     var bgColor = C("nav_style.bg_color");
     var fgColor = C("nav_style.fg_color");
     if (!reverse) {
-        $(elem).css("background-color", bgColor);
+        $(elem).css("background-color", "initial");
         $(elem).css("color", fgColor);
     } else {
         $(elem).css("background-color", fgColor);
@@ -441,8 +444,8 @@ function initSliders(settings){
 	    	$(dragingElem).attr("draging", false);	            
 		    $(dragingElem).find("span.slider_value").css("display", "none");
 		    var jValueElem = $(dragingElem).parent("span.range-bar").prev("input.js-range");
-		    var bindConf = jValueElem.attr("bindConf");
-		    C(bindConf, jValueElem.val());
+		    var bindConf = jValueElem.attr("bindConf");		    
+		    C(bindConf, $.trim(jValueElem.val()));
 		    switch(bindConf)
 		    {
 		    	case "nav_style.opacity.current":
@@ -456,6 +459,26 @@ function initSliders(settings){
 			        less.modifyVars({
 			            '@nav_height': C(bindConf),
 			        });
+			    break;
+			    case "smart_qq.width.current":
+			    case "smart_qq.height.current":
+			    	if(C("app.current") ==  "smart_qq")
+			    	{			    	
+				    	//toggleOptionPanel(false);
+	    				//updateColor("#a_options", false);	
+			    		window.resizeTo(C("smart_qq.width.current"), C("smart_qq.height.current"));
+			    		//$("#d_options").css("display","block");
+			    	}			    	
+			    break;
+			    case "web_qq.width.current":
+			    case "web_qq.height.current":
+			    	if(C("app.current") ==  "web_qq")
+			    	{	
+					   	//toggleOptionPanel(false);
+		    			//updateColor("#a_options", false);			    	
+				    	window.resizeTo(C("web_qq.width.current"), C("web_qq.height.current"));
+				    	//$("#d_options").css("display","block");
+			    	}
 			    break;
 		    }		    
     	}			   

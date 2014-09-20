@@ -25,7 +25,7 @@
     </head>
     <body>
         <header>
-            <nav><a id="a_smart_qq" href="#">SmartQQ</a>&nbsp;|&nbsp;<a id="a_web_qq" href="#">WebQQ</a><a id="a_options" href="#">❤</a></nav>        
+            <nav><a id="a_smart_qq" href="#">SmartQQ</a>&nbsp;|&nbsp;<a id="a_web_qq" href="#">WebQQ</a><span id="s_options"><a id="a_options" href="#">❤</a><span></nav>        
             <div id="d_options">
                 <fieldset id="f_global_options">
                     <legend>全局设置</legend>
@@ -99,7 +99,7 @@
                         <li><span class="label">字体颜色：</span>
                             <span>
                                 <input type="button" name="op_nav_style_fg_color" style="background:black" class="color_chooser color_chooser_checked" bindConf="nav_style.fg_color"/>
-                                <input type="button" name="op_nav_style_fg_color" color_value="white" class="color_chooser" value="" bindConf="nav_style.fg_color"/>                                
+                                <input type="button" name="op_nav_style_fg_color" style="background:white" class="color_chooser" value="" bindConf="nav_style.fg_color"/>                                
                             </span>
                         </li>
                         <li>
@@ -117,10 +117,10 @@
                     <legend>SmartQQ设置</legend>
                     <ul>
                         <li>
-                            <span class="label">宽度（px）：</span><span class="ranger-wrapper" bindConf="smart_qq.width.current"><input type="text" class="js-range" /></span>                            
+                            <span class="label">宽度（px）：</span><span class="ranger-wrapper"><input type="text" class="js-range" bindConf="smart_qq.width.current"/></span>                            
                         </li>
                         <li>
-                            <span class="label">高度（px）：</span><span class="ranger-wrapper"  bindConf="smart_qq.height.current"><input type="text" class="js-range" /></span>
+                            <span class="label">高度（px）：</span><span class="ranger-wrapper"><input type="text" class="js-range" bindConf="smart_qq.height.current"/></span>
                         </li>
                     </ul>
                 </fieldset>
@@ -129,10 +129,10 @@
                     <legend>WebQQ设置</legend>
                     <ul>
                         <li>
-                            <span class="label">宽度（px）：</span><span class="ranger-wrapper" bindConf="web_qq.width.current"><input type="text" class="js-range" /></span>                        
+                            <span class="label">宽度（px）：</span><span class="ranger-wrapper"><input type="text" class="js-range"  bindConf="web_qq.width.current"/></span>                        
                         </li>
                         <li>
-                             <span class="label">高度（px）：</span><span class="ranger-wrapper" bindConf="web_qq.height.current"><input type="text" class="js-range" /></span>
+                             <span class="label">高度（px）：</span><span class="ranger-wrapper"><input type="text" class="js-range"  bindConf="web_qq.height.current"/></span>
                         </li>
                     </ul>
                 </fieldset>
