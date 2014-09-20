@@ -93,9 +93,9 @@ $(document).ready(function() {
     // setting background color event
     $("#f_nv_style input[name=op_nav_style_bg_color]").click(function(e) {
         C("nav_style.bg_color", $(this).css("background-color"));
+        less.globalVars.bg_color = C("nav_style.bg_color");
         less.modifyVars({
-            '@bg_color': C("nav_style.bg_color"),
-            '@fg_color': C("nav_style.fg_color")
+            '@bg_color': C("nav_style.bg_color"),            
         });
 
         updateColor(aOptions, isShowOption);
@@ -162,11 +162,11 @@ $(document).ready(function() {
     // setting frontground color event
     $("#f_nv_style input[name=op_nav_style_fg_color]").click(function(e) {        
         C("nav_style.fg_color", $(this).css("background-color"));
-            less.modifyVars({
-                '@bg_color': C("nav_style.bg_color"),
-                '@fg_color': C("nav_style.fg_color")
-            });
-            updateColor(aOptions, isShowOption);
+        less.globalVars.fg_color = C("nav_style.fg_color");
+        less.modifyVars({            
+            '@fg_color': C("nav_style.fg_color")
+        });
+        updateColor(aOptions, isShowOption);
 
         $(this).parent().find("input").removeClass('color_chooser_checked');
         $(this).addClass("color_chooser_checked");

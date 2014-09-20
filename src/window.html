@@ -81,16 +81,16 @@
                     <ul>
                         <li><span class="label">背景颜色：</span>
                             <span>
-                                <input type="button" name="op_nav_style_bg_color" style="background:black" class="color_chooser"/>
-                                <input type="button" name="op_nav_style_bg_color" style="background:red" class="color_chooser" value=""/>
-                                <input type="button" name="op_nav_style_bg_color" style="background:orange" class="color_chooser" value=""/>
-                                <input type="button" name="op_nav_style_bg_color" style="background:yellow" class="color_chooser" value=""/>
-                                <input type="button" name="op_nav_style_bg_color" style="background:green" class="color_chooser" value=""/>
-                                <input type="button" name="op_nav_style_bg_color" style="background:cyan" class="color_chooser" value=""/>
-                                <input type="button" name="op_nav_style_bg_color" style="background:indigo" class="color_chooser" value=""/>
-                                <input type="button" name="op_nav_style_bg_color" style="background:purple" class="color_chooser" value=""/>
-                                <input type="button" name="op_nav_style_bg_color" style="background:white" class="color_chooser" value=""/>
-                                <input type="text" name="op_nav_style_bg_color_custom" placeholder="自定义" class="color_chooser_custom">
+                                <input type="button" name="op_nav_style_bg_color" style="background:black" class="color_chooser color_chooser_checked" bindConf="nav_style.bg_color"/>
+                                <input type="button" name="op_nav_style_bg_color" style="background:red" class="color_chooser" bindConf="nav_style.bg_color" value=""/>
+                                <input type="button" name="op_nav_style_bg_color" style="background:orange" class="color_chooser" bindConf="nav_style.bg_color" value=""/>
+                                <input type="button" name="op_nav_style_bg_color" style="background:yellow" class="color_chooser" bindConf="nav_style.bg_color" value=""/>
+                                <input type="button" name="op_nav_style_bg_color" style="background:green" class="color_chooser" bindConf="nav_style.bg_color" value=""/>
+                                <input type="button" name="op_nav_style_bg_color" style="background:cyan" class="color_chooser" bindConf="nav_style.bg_color" value=""/>
+                                <input type="button" name="op_nav_style_bg_color" style="background:indigo" class="color_chooser" bindConf="nav_style.bg_color" value=""/>
+                                <input type="button" name="op_nav_style_bg_color" style="background:purple" class="color_chooser" bindConf="nav_style.bg_color" value=""/>
+                                <input type="button" name="op_nav_style_bg_color" style="background:white" class="color_chooser" bindConf="nav_style.bg_color" value=""/>
+                                <input type="text" name="op_nav_style_bg_color_custom" placeholder="自定义" class="color_chooser_custom" bindConf="nav_style.bg_color">
                             </span>
                             <div style="height:200px;height:200px; display:none; clear:both;">
                                 <canvas></canvas>
@@ -98,17 +98,17 @@
                         </li>
                         <li><span class="label">字体颜色：</span>
                             <span>
-                                <input type="button" name="op_nav_style_fg_color" color_value="black" style="background:black" class="color_chooser color_chooser_checked"/>
-                                <input type="button" name="op_nav_style_fg_color" color_value="white" style="background:white" class="color_chooser" value=""/>                                
+                                <input type="button" name="op_nav_style_fg_color" style="background:black" class="color_chooser color_chooser_checked" bindConf="nav_style.fg_color"/>
+                                <input type="button" name="op_nav_style_fg_color" color_value="white" class="color_chooser" value="" bindConf="nav_style.fg_color"/>                                
                             </span>
                         </li>
                         <li>
                             <span class="label ranger-label" style="width:75px">透明度（%）:</span>
-                            <span class="ranger-wrapper"><input type="text" class="js-range" /></span>
+                            <span class="ranger-wrapper"><input type="text" class="js-range" bindConf="nav_style.opacity.current" /></span>
                         </li>
                         <li>
                             <span class="label ranger-label" style="width:75px">高度（px）:</span>
-                            <span class="ranger-wrapper"><input type="text" class="js-range" /></span>
+                            <span class="ranger-wrapper"><input type="text" class="js-range" bindConf="nav_style.height.current"/></span>
                         </li>
                     </ul>
                 </fieldset>
@@ -117,10 +117,10 @@
                     <legend>SmartQQ设置</legend>
                     <ul>
                         <li>
-                            <span class="label">宽度（px）：</span><span class="ranger-wrapper"><input type="text" class="js-range" /></span>                            
+                            <span class="label">宽度（px）：</span><span class="ranger-wrapper" bindConf="smart_qq.width.current"><input type="text" class="js-range" /></span>                            
                         </li>
                         <li>
-                            <span class="label">高度（px）：</span><span class="ranger-wrapper"><input type="text" class="js-range" /></span>
+                            <span class="label">高度（px）：</span><span class="ranger-wrapper"  bindConf="smart_qq.height.current"><input type="text" class="js-range" /></span>
                         </li>
                     </ul>
                 </fieldset>
@@ -129,10 +129,10 @@
                     <legend>WebQQ设置</legend>
                     <ul>
                         <li>
-                            <span class="label">宽度（px）：</span><span class="ranger-wrapper"><input type="text" class="js-range" /></span>                        
+                            <span class="label">宽度（px）：</span><span class="ranger-wrapper" bindConf="web_qq.width.current"><input type="text" class="js-range" /></span>                        
                         </li>
                         <li>
-                             <span class="label">高度（px）：</span><span class="ranger-wrapper"><input type="text" class="js-range" /></span>
+                             <span class="label">高度（px）：</span><span class="ranger-wrapper" bindConf="web_qq.height.current"><input type="text" class="js-range" /></span>
                         </li>
                     </ul>
                 </fieldset>

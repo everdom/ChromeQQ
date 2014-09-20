@@ -6,7 +6,7 @@ define(function(require, exports, module){
 			'version':"0.1",
 		},
 		'global':{
-			'default':"web_qq",			
+			'default':"smart_qq",			
 		},
 		'nav_position':"top",
 		'nav_show':"always_show",

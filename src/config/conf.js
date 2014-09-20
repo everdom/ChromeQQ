@@ -13,7 +13,7 @@ var Conf = (function(reset)
 			'version':"0.1",
 		},
 		'global':{
-			'default':"web_qq",			
+			'default':"smart_qq",			
 		},
 		'nav_position':"top",
 		'nav_show':"always_show",
@@ -271,24 +271,23 @@ function setBgColor(bgColor, isCheck)
             if(colorReg[i].test(bgColor))
             {
                 C("nav_style.bg_color", bgColor);
+                less.globalVars.bg_color = C("nav_style.bg_color");
                 less.modifyVars({
-                    '@bg_color': C("nav_style.bg_color"),
-                    '@fg_color': C("nav_style.fg_color")
+                    '@bg_color': C("nav_style.bg_color"),                    
                 });
                 updateColor(aOptions, isShowOption);
                 return true;                     
             }
-        }
-        console.log("can't adapt to color format");
+        }        
         return false;
               
     }
     else
     {
         C("nav_style.bg_color", bgColor);
+        less.globalVars.bg_color = C("nav_style.bg_color");
         less.modifyVars({
-            '@bg_color': C("nav_style.bg_color"),
-            '@fg_color': C("nav_style.fg_color")
+            '@bg_color': C("nav_style.bg_color"),            
         });
         updateColor(aOptions, isShowOption);
         return true;
@@ -319,37 +318,43 @@ function initSliders(settings){
         min: settings.nav_style.opacity.min,
         max: settings.nav_style.opacity.max,
         start: settings.nav_style.opacity.current,
-        hideRange: true
+        hideRange: true,
+        bindKey:"test",
     }, {
         klass: 'power-ranger',
         min: settings.nav_style.height.min,
         max: settings.nav_style.height.max,
         start: settings.nav_style.height.current,
-        hideRange: true
+        hideRange: true,
+        bindKey:"test",
     }, {
         klass: 'power-ranger',
         min: settings.smart_qq.width.min,
         max: settings.smart_qq.width.max,
         start: settings.smart_qq.width.current,
-        hideRange: true
+        hideRange: true,
+        bindKey:"test",
     }, {
         klass: 'power-ranger',
         min: settings.smart_qq.height.min,
         max: settings.smart_qq.height.max,
         start: settings.smart_qq.height.current,
-        hideRange: true
+        hideRange: true,
+        bindKey:"test",
     }, {
         klass: 'power-ranger',
         min: settings.web_qq.width.min,
         max: settings.web_qq.width.max,
         start: settings.web_qq.width.current,
-        hideRange: true
+        hideRange: true,
+        bindKey:"test",
     }, {
         klass: 'power-ranger',
         min: settings.web_qq.height.min,
         max: settings.web_qq.height.max,
         start: settings.web_qq.height.current,
-        hideRange: true
+        hideRange: true,
+        bindKey:"test",
     }];
 
     var oSliderValue = document.createElement("span");
@@ -400,39 +405,61 @@ function initSliders(settings){
 
         $(slider.handle).append(oSliderValue1);
 
-        var isSliderDrag = false;
+        //var isSliderDrag = false;
+        var dragingElem = null;
         $(slider.handle).mouseover(function() {
-        	if(isSliderDrag == false)
+        	if(!$(this).attr("draging") || $(this).attr("draging") == "false")
         	{
             	$(this).find("span.slider_value").css("display", "inline");
             }
         });
 
         $(slider.handle).mouseout(function() {
-        	if(isSliderDrag == false)
+        	if(!$(this).attr("draging") || $(this).attr("draging") == "false")
         	{
             	$(this).find("span.slider_value").css("display", "none");
         	}
         });
 
         $(slider.handle).mousedown(function() {
-        	isSliderDrag = true;
+        	//isSliderDrag = true;
+        	$(this).attr("draging", true);
             $(this).find("span.slider_value").css("display", "inline");
+            dragingElem = this;
         });
-        $(document).mouseup(function() {
-        	isSliderDrag = false;
-            $("span.slider_value").css("display", "none");
-        });
-    
 
         // change value text when slide the handle
         elems[i].onchange = function() {
             var oSliderValue = $(this).next(".range-bar").find('.slider_value');
-            oSliderValue.text(this.value);
-            var bindKey = this.bindKey;
-            //C(bindKey, this.value);  
+            oSliderValue.text(this.value);            
         };                
     }
+
+    $(document).mouseup(function() {
+    	if(dragingElem)
+    	{
+	    	$(dragingElem).attr("draging", false);	            
+		    $(dragingElem).find("span.slider_value").css("display", "none");
+		    var jValueElem = $(dragingElem).parent("span.range-bar").prev("input.js-range");
+		    var bindConf = jValueElem.attr("bindConf");
+		    C(bindConf, jValueElem.val());
+		    switch(bindConf)
+		    {
+		    	case "nav_style.opacity.current":
+		    		less.globalVars.bg_opacity = C(bindConf);
+			    	less.modifyVars({
+			            '@bg_opacity': C(bindConf),	            
+			        });
+		        break;
+		        case "nav_style.height.current":
+		        	less.globalVars.nav_height = C(bindConf);
+			        less.modifyVars({
+			            '@nav_height': C(bindConf),
+			        });
+			    break;
+		    }		    
+    	}			   
+	});
 }
 function initSettings(settings){
     function checkRadio($radioElems, value)
