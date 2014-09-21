@@ -330,7 +330,8 @@ function initSliders(settings){
         start: settings.nav_style.height.current,
         hideRange: true,
         bindKey:"test",
-    }, {
+    }, 
+    /*{
         klass: 'power-ranger',
         min: settings.smart_qq.width.min,
         max: settings.smart_qq.width.max,
@@ -358,7 +359,8 @@ function initSliders(settings){
         start: settings.web_qq.height.current,
         hideRange: true,
         bindKey:"test",
-    }];
+    }*/
+    ];
 
     var oSliderValue = document.createElement("span");
     $(oSliderValue).addClass("slider_value");
@@ -460,6 +462,7 @@ function initSliders(settings){
 			            '@nav_height': C(bindConf),
 			        });
 			    break;
+			    /*
 			    case "smart_qq.width.current":
 			    case "smart_qq.height.current":
 			    	if(C("app.current") ==  "smart_qq")
@@ -480,6 +483,7 @@ function initSliders(settings){
 				    	//$("#d_options").css("display","block");
 			    	}
 			    break;
+			    */
 		    }		    
     	}			   
 	});
