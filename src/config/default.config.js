@@ -22,7 +22,7 @@ define(function(require, exports, module){
 			'height':{
 				'current':30,
 				'min':30,
-				'max':70,
+				'max':50,
 			},
 		},
 		'smart_qq':{

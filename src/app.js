@@ -173,7 +173,12 @@ $(document).ready(function() {
     });
 
 
-    // setting nav opacity
+    webview.style.width = window.innerWidth + "px";
+    webview.style.height = (window.innerHeight - C("nav_style.height.current")) + "px";
+    $(".ranger-wrapper").each(function() {
+        var width = window.innerWidth - 145;
+        $(this).css("width", width);
+    });
     
     window.onresize = function() {
         //$("#d_options").css("display","block");
@@ -197,6 +202,9 @@ $(document).ready(function() {
             '@win_height': window.innerHeight,
             '@win_width': window.innerWidth,
         });
+        currentQQ = C("app.current");
+        C(currentQQ+".width.current",window.innerWidth);
+        C(currentQQ+".height.current",window.innerHeight);
         //toggleOptionPanel(false);
         //updateColor("#a_options", false);   
         //$("#d_options").css("display","none");

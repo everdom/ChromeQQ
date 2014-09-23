@@ -29,7 +29,7 @@ var Conf = (function(reset)
 			'height':{
 				'current':30,
 				'min':30,
-				'max':70,
+				'max':50,
 			},
 		},
 		'smart_qq':{
@@ -446,7 +446,8 @@ function initSliders(settings){
 	    	$(dragingElem).attr("draging", false);	            
 		    $(dragingElem).find("span.slider_value").css("display", "none");
 		    var jValueElem = $(dragingElem).parent("span.range-bar").prev("input.js-range");
-		    var bindConf = jValueElem.attr("bindConf");		    
+		    var bindConf = jValueElem.attr("bindConf");
+		    var webview = document.getElementById("qq");
 		    C(bindConf, $.trim(jValueElem.val()));
 		    switch(bindConf)
 		    {
@@ -460,6 +461,12 @@ function initSliders(settings){
 		        	less.globalVars.nav_height = C(bindConf);
 			        less.modifyVars({
 			            '@nav_height': C(bindConf),
+			        });
+			        webview.style.width = window.innerWidth + "px";
+			        webview.style.height = (window.innerHeight - C("nav_style.height.current")) + "px";
+			        $(".ranger-wrapper").each(function() {
+			            var width = window.innerWidth - 145;
+			            $(this).css("width", width);
 			        });
 			    break;
 			    /*
