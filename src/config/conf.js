@@ -301,12 +301,13 @@ function updateColor(elem, reverse)
 {
     var bgColor = C("nav_style.bg_color");
     var fgColor = C("nav_style.fg_color");
-    if (!reverse) {
-        $(elem).css("background-color", "initial");
-        $(elem).css("color", fgColor);
-    } else {
-        $(elem).css("background-color", fgColor);
-        $(elem).css("color", bgColor);
+    if (!reverse) 
+    {
+    	$(elem).removeClass("pressed").addClass("normal");    	               
+    } 
+    else 
+    {  
+    	$(elem).removeClass("normal").addClass("pressed");        
     }
 }
 
@@ -547,6 +548,19 @@ function initSettings(settings){
     {
         eleStr = "#d_options input[name=op_"+name+"]";        
         checkColorChoser($(eleStr), C(checkColorArr[name]));
+    }
+
+    switch(C("nav_show"))
+    {
+    	case "always_show":
+    		break;
+    	case "auto_hide":
+    		$("nav").css({"position":"fixed"});
+    		break;
+    	case "not_show":
+    		$("nav").css({"visibility":"hidden", "position":"fixed"});
+    		$("#s_options").css({"visibility":"visible"});
+    		break;
     }
 }
 

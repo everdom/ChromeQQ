@@ -34,7 +34,7 @@ body {
     background:@scrollbar_bg_color_highlight;
     border:1px solid @scrollbar_bg_color;
 }
-header {
+div#nav_panel {
     width: 100%;
     position: relative;
     color: @text_color;
@@ -71,6 +71,17 @@ nav a:hover {
     line-height: @nav_height - @nav_padding * 2;
     padding: 5px 0px;
 }
+
+#s_options a.normal{
+    background-color: @bg_color_alpha;
+    color:@fg_color;
+}
+
+#s_options a.pressed{
+    background-color: @fg_color;
+    color: @bg_color_alpha;
+}
+
 #a_options {
     padding: 2px;    
 }

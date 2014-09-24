@@ -24,8 +24,8 @@
     <script type="text/javascript" src="app.js?12321"></script>    
     </head>
     <body>
-        <header>
-            <nav><a id="a_smart_qq" href="#">SmartQQ</a>&nbsp;|&nbsp;<a id="a_web_qq" href="#">WebQQ</a><span id="s_options"><a id="a_options" href="#">❤</a><span></nav>        
+        <div id="nav_panel">
+            <nav><a id="a_smart_qq" href="#">SmartQQ</a>&nbsp;|&nbsp;<a id="a_web_qq" href="#">WebQQ</a><span id="s_options"><a id="a_options" href="#">❤</a></span></nav>        
             <div id="d_options">
                 <fieldset id="f_global_options">
                     <legend>全局设置</legend>
@@ -38,7 +38,7 @@
 
                     </ul>
                 </fieldset>
-
+<!--
                  <fieldset id="f_nv_pos">
                     <legend>导航显示位置</legend>
                     <ul>
@@ -54,9 +54,11 @@
 
                             <span><input type="radio" name="op_nav_position" value="right"/></span>
                             <span class="radio_label">右</span>
+
                         </li>
                     </ul>
                 </fieldset>
+-->
 
                 <fieldset id="f_nv_show">
                     <legend>导航显示方式</legend>
@@ -139,7 +141,7 @@
                 </fieldset>
 -->
             </div>
-        </header>
+        </div>
         <div id="main">
             <webview id="qq"></webview>
         </div>
