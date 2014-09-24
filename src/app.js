@@ -88,6 +88,7 @@ $(document).ready(function() {
     // setting nav show style
      $("input[name=op_nav_show]").change(function(){
         C("nav_show", $(this).val());
+        setNavShow();        
     });
 
     // setting background color event

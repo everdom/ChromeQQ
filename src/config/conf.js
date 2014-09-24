@@ -308,7 +308,7 @@ function updateColor(elem, reverse)
     else 
     {  
     	$(elem).removeClass("normal").addClass("pressed");        
-    }
+    }    
 }
 
 
@@ -469,7 +469,7 @@ function initSliders(settings){
 			            var width = window.innerWidth - 145;
 			            $(this).css("width", width);
 			        });
-			    break;
+			    break;			    
 			    /*
 			    case "smart_qq.width.current":
 			    case "smart_qq.height.current":
@@ -549,18 +549,24 @@ function initSettings(settings){
         eleStr = "#d_options input[name=op_"+name+"]";        
         checkColorChoser($(eleStr), C(checkColorArr[name]));
     }
-
-    switch(C("nav_show"))
+	setNavShow();    
+}
+function setNavShow()
+{
+	switch(C("nav_show"))
     {
     	case "always_show":
+    		$("header").css({"visibility":"visible", "position":"relative"});
+    		$("nav").css({"visibility":"initial", "position":"initial"});
     		break;
     	case "auto_hide":
-    		$("nav").css({"position":"fixed"});
+    		$("header").css({"visibility":"visible", "position":"fixed"});
+    		$("nav").css({"visibility":"initial", "position":"initial"}); 
     		break;
     	case "not_show":
-    		$("nav").css({"visibility":"hidden", "position":"fixed"});
-    		$("#s_options").css({"visibility":"visible"});
-    		break;
+    		$("header").css({"visibility":"initial", "position":"initial"});
+    		$("nav").css({"visibility":"hidden", "position":"fixed"});    		
+    		break;    	
     }
+    $("#s_options").css({"visibility":"visible"});
 }
-
