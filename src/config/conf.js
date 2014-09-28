@@ -17,7 +17,11 @@ var Conf = (function(reset)
 			'default':"smart_qq"
 		},
 		'nav_position':"top",
-		'nav_show':"always_show",        
+		'nav_show':"always_show",
+		'nav_auto_hide_timeout':{
+			"appear":500,
+			"disappear":1000
+		},   
 		'nav_style':{
 			'bg_color':"rgb(110, 195, 244)",
 			'fg_color':"rgb(255, 255, 255)",
@@ -463,35 +467,8 @@ function initSliders(settings){
 			        less.modifyVars({
 			            '@nav_height': C(bindConf),
 			        });
-			        webview.style.width = window.innerWidth + "px";
-			        webview.style.height = (window.innerHeight - C("nav_style.height.current")) + "px";
-			        $(".ranger-wrapper").each(function() {
-			            var width = window.innerWidth - 145;
-			            $(this).css("width", width);
-			        });
+			        adjustWebview();
 			    break;			    
-			    /*
-			    case "smart_qq.width.current":
-			    case "smart_qq.height.current":
-			    	if(C("app.current") ==  "smart_qq")
-			    	{			    	
-				    	//toggleOptionPanel(false);
-	    				//updateColor("#a_options", false);	
-			    		window.resizeTo(C("smart_qq.width.current"), C("smart_qq.height.current"));
-			    		//$("#d_options").css("display","block");
-			    	}			    	
-			    break;
-			    case "web_qq.width.current":
-			    case "web_qq.height.current":
-			    	if(C("app.current") ==  "web_qq")
-			    	{	
-					   	//toggleOptionPanel(false);
-		    			//updateColor("#a_options", false);			    	
-				    	window.resizeTo(C("web_qq.width.current"), C("web_qq.height.current"));
-				    	//$("#d_options").css("display","block");
-			    	}
-			    break;
-			    */
 		    }		    
     	}			   
 	});
@@ -569,4 +546,28 @@ function setNavShow()
     		break;
     }
     $("#s_options").css({"visibility":"visible"});
+    adjustWebview();
+}
+
+function adjustWebview()
+{
+	jWebview = $("#qq");
+	jWebview.css({"width":window.innerWidth+"px"});    
+    switch(C("nav_show"))
+    {
+        case "always_show":
+        	jWebview.css({"height":(window.innerHeight - C("nav_style.height.current")) + "px"});            
+            break;
+        case "auto_hide":
+        case "not_show":
+        default:
+            jWebview.css({"height": window.innerHeight + "px"});
+        break;
+    }
+    
+    
+    $(".ranger-wrapper").each(function() {
+        var width = window.innerWidth - 145;
+        $(this).css("width", width);
+    });
 }

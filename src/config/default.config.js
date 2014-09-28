@@ -10,7 +10,11 @@ define(function(require, exports, module){
 			'default':"smart_qq"
 		},
 		'nav_position':"top",
-		'nav_show':"always_show",		
+		'nav_show':"always_show",
+		'nav_auto_hide_timeout':{
+			"appear":200,
+			"disappear":500
+		},
 		'nav_style':{
 			'bg_color':"rgb(110, 195, 244)",
 			'fg_color':"rgb(255, 255, 255)",
@@ -33,7 +37,7 @@ define(function(require, exports, module){
 				'max':screen.availWidth
 			},
 			'height':{
-				'current':620,
+				'current':610,
 				'min':272,
 				'max':screen.availHeight
 			},
@@ -46,8 +50,8 @@ define(function(require, exports, module){
 				'max':screen.availWidth
 			},
 			'height':{
-				'current':620,
-				'min':620,
+				'current':610,
+				'min':610,
 				'max':screen.availHeight
 			},
 		}
