@@ -10,7 +10,7 @@ define(function(require, exports, module){
 			'default':"smart_qq"
 		},
 		'nav_position':"top",
-		'nav_show':"always_show",
+		'nav_show':"always_show",		
 		'nav_style':{
 			'bg_color':"rgb(110, 195, 244)",
 			'fg_color':"rgb(255, 255, 255)",
@@ -24,7 +24,7 @@ define(function(require, exports, module){
 				'min':30,
 				'max':50,
 			},
-		},
+		},		
 		'smart_qq':{
 			'url': "http://w.qq.com",
 			'width':{

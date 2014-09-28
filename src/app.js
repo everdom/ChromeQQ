@@ -211,10 +211,46 @@ $(document).ready(function() {
         //$("#d_options").css("display","none");
 
     };
-    // $(document).click(function(e){        
-    //     if(e.target != aOptions)
+    // var isInOption = false;
+    // $("#d_options").hover(
+    //     function()
+    //     {
+    //         isInOption = true;
+    //     },
+    //     function()
+    //     {
+    //         isInOption = false;
+    //     }
+    // );
+    // $(document).click(function(e){     
+    //     if(e.target != aOptions && isShowOption && !isInOption)
     //     {
     //         $(dOptions).slideUp(200, "easeInExpo");
     //     }
     // });
+    
+    var isNavShow = false;
+    $(document).mousemove(function(e){    
+        if(C("nav_show") == "auto_hide")
+        {
+            if(e.clientY < C("nav_style.height.current"))
+            {
+                if(!isNavShow)
+                {
+                    $("nav").slideDown();
+                    $("nav #s_options").slideDown();
+                    isNavShow = true;
+                }
+            }
+            else
+            {
+                if(isNavShow && !isShowOption)
+                {
+                    $("nav").slideUp();
+                    $("nav #s_options").slideUp();
+                    isNavShow = false;
+                }
+            } 
+        }    
+    });
 });

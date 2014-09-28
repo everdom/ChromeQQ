@@ -17,7 +17,7 @@ var Conf = (function(reset)
 			'default':"smart_qq"
 		},
 		'nav_position':"top",
-		'nav_show':"always_show",
+		'nav_show':"always_show",        
 		'nav_style':{
 			'bg_color':"rgb(110, 195, 244)",
 			'fg_color':"rgb(255, 255, 255)",
@@ -30,7 +30,7 @@ var Conf = (function(reset)
 				'current':30,
 				'min':30,
 				'max':50,
-			},
+			},            
 		},
 		'smart_qq':{
 			'url': "http://w.qq.com",
@@ -549,7 +549,7 @@ function initSettings(settings){
         eleStr = "#d_options input[name=op_"+name+"]";        
         checkColorChoser($(eleStr), C(checkColorArr[name]));
     }
-	setNavShow();    
+	setNavShow();
 }
 function setNavShow()
 {
@@ -565,8 +565,8 @@ function setNavShow()
     		break;
     	case "not_show":
     		$("header").css({"visibility":"initial", "position":"initial"});
-    		$("nav").css({"visibility":"hidden", "position":"fixed"});    		
-    		break;    	
+    		$("nav").css({"visibility":"hidden", "position":"fixed"});
+    		break;
     }
     $("#s_options").css({"visibility":"visible"});
 }
