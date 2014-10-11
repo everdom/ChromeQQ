@@ -32,12 +32,12 @@ define(function(require, exports, module){
 		'smart_qq':{
 			'url': "http://w.qq.com",
 			'width':{
-				'current':360,
+				'current':328,
 				'min':250,
 				'max':screen.availWidth
 			},
 			'height':{
-				'current':610,
+				'current':480,
 				'min':272,
 				'max':screen.availHeight
 			},
