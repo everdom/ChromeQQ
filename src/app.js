@@ -1,12 +1,8 @@
 seajs.config({
-    base: "./", 
+    base: "./",
     alias:{
         "defaultConfig":"config/default.config.js",
-        "config":"config/conf.js",
-        //"less":"lib/less-1.7.4.js",
-        //"jquery":"lib/jquery-2.1.1.min.js",
-        //"powerange":"lib/powerange.js",
-        //"jquery.easing":"lib/jquery.easing.1.3.js",    
+        "config":"config/conf.js"
     }
 });
 
@@ -18,15 +14,15 @@ seajs.use("lib/jquery.easing.1.3");
 define(function(require, exports, module){
     var config = require("config");
     var Conf = config.Conf;
-    var C = config.C;    
+    var C = config.C;
 
-    Conf.load(function(data){        
+    Conf.load(function(data){
         less.globalVars.nav_height = data.nav_style.height.current + "px";
         less.globalVars.bg_color = data.nav_style.bg_color;
         less.globalVars.fg_color = data.nav_style.fg_color;
         less.globalVars.bg_opacity = data.nav_style.opacity.current + "%";
 
-        var defaultqq = data.global.default;    
+        var defaultqq = data.global.default;
         if(defaultqq == "smart_qq")
         {
             less.globalVars.win_width = data.smart_qq.width.current + "px";
@@ -43,13 +39,23 @@ define(function(require, exports, module){
             less.globalVars.win_height = "620px";
         }
 
-        require.async("lib/less-1.7.4");
-        initSliders(data);
-        initSettings(data);
+        require.async("lib/less-1.7.4");          
+
+        var isFirstLoad = true;
+
+        //initSliders(data);
+
+        less.onload = function(){       
+            if(isFirstLoad)
+            {
+                initSliders(data);
+                isFirstLoad = false;
+            }            
+        }
+        
+        initSettings(data);       
     });
     
-
-    var isShowOption = false;
     function switchQQ(webview, type)
     {
         toggleOptionPanel(false);
@@ -65,7 +71,7 @@ define(function(require, exports, module){
             C("app.current", "smart_qq");
             webview.src = C('smart_qq.url');
             window.resizeTo(C("smart_qq.width.current"), C("smart_qq.height.current"));
-        }    
+        }
     }
 
     function toggleOptionPanel(open)
@@ -79,10 +85,10 @@ define(function(require, exports, module){
         {
             isShowOption = false;
             $("#d_options").slideUp(200, "easeInExpo");
-        }    
+        }
     }
     function setBgColor(bgColor, isCheck)
-    {        
+    {
         var colorReg = [
             /^\s*(rgb\(\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\))\s*$/i,
             /^\s*#([0-9a-f]{3})\s*$/i,
@@ -97,12 +103,12 @@ define(function(require, exports, module){
                     C("nav_style.bg_color", bgColor);
                     less.globalVars.bg_color = C("nav_style.bg_color");
                     less.modifyVars({
-                        '@bg_color': C("nav_style.bg_color"),                    
+                        '@bg_color': C("nav_style.bg_color"),
                     });
                     updateColor(aOptions, isShowOption);
-                    return true;                     
+                    return true;
                 }
-            }        
+            }
             return false;
                   
         }
@@ -111,25 +117,25 @@ define(function(require, exports, module){
             C("nav_style.bg_color", bgColor);
             less.globalVars.bg_color = C("nav_style.bg_color");
             less.modifyVars({
-                '@bg_color': C("nav_style.bg_color"),            
+                '@bg_color': C("nav_style.bg_color"),
             });
             updateColor(aOptions, isShowOption);
             return true;
-        }        
+        }
     }
 
-    function updateColor(elem, reverse) 
+    function updateColor(elem, reverse)
     {
         var bgColor = C("nav_style.bg_color");
         var fgColor = C("nav_style.fg_color");
-        if (!reverse) 
+        if (!reverse)
         {
-            $(elem).removeClass("pressed").addClass("normal");                     
-        } 
-        else 
-        {  
-            $(elem).removeClass("normal").addClass("pressed");        
-        }    
+            $(elem).removeClass("pressed").addClass("normal");
+        }
+        else
+        {
+            $(elem).removeClass("normal").addClass("pressed");
+        }
     }
 
 
@@ -145,6 +151,7 @@ define(function(require, exports, module){
             start: settings.nav_style.opacity.current,
             hideRange: true,
             bindKey:"test",
+            current:settings.nav_style.opacity.current,
         }, {
             klass: 'power-ranger',
             min: settings.nav_style.height.min,
@@ -152,7 +159,8 @@ define(function(require, exports, module){
             start: settings.nav_style.height.current,
             hideRange: true,
             bindKey:"test",
-        }, 
+            current:settings.nav_style.height.current,
+        },
         ];
 
         var oSliderValue = document.createElement("span");
@@ -164,7 +172,7 @@ define(function(require, exports, module){
             "height": "16px",
             "text-align": "center",
             "margin-left": "-10px",
-            "color": "black",    
+            "color": "black",
             "line-height": "16px",
             "position": "relative",
             "margin-top": "-15px",
@@ -178,11 +186,11 @@ define(function(require, exports, module){
 
         var width = window.innerWidth - 145;
 
-        $(".ranger-wrapper").each(function() {        
+        $(".ranger-wrapper").each(function() {
             $(this).css("width", width);
         });
 
-        sliders = [];
+        sliders = [];        
         for (var i = 0; i < elems.length; i++) {
             // set initial value        
             sliders[i] = new Powerange(elems[i], sliderOptions[i]);
@@ -192,10 +200,11 @@ define(function(require, exports, module){
             
             var left = (slider.options.start - slider.options.min) / (slider.options.max - slider.options.min) * width - 16;
             left = left < 0 ? 0 : left;
+            left = left > width ? width: left;
 
             $(slider.handle).css("left", left);
             $(slider.slider).find(".range-quantity").css("width", left);
-            
+            $(slider.element).val(slider.options.current);
 
             // add value text to slider handle
             var oSliderValue1 = $(oSliderValue).clone();
@@ -229,14 +238,14 @@ define(function(require, exports, module){
             // change value text when slide the handle
             elems[i].onchange = function() {
                 var oSliderValue = $(this).next(".range-bar").find('.slider_value');
-                oSliderValue.text(this.value);            
-            };                
+                oSliderValue.text(this.value);
+            };
         }
 
         $(document).mouseup(function() {
             if(dragingElem)
             {
-                $(dragingElem).attr("draging", false);              
+                $(dragingElem).attr("draging", false);
                 $(dragingElem).find("span.slider_value").css("display", "none");
                 var jValueElem = $(dragingElem).parent("span.range-bar").prev("input.js-range");
                 var bindConf = jValueElem.attr("bindConf");
@@ -256,8 +265,8 @@ define(function(require, exports, module){
                             '@nav_height': C(bindConf),
                         });
                         adjustWebview();
-                    break;              
-                }           
+                    break;
+                }
             }              
         });
     }
@@ -317,12 +326,12 @@ define(function(require, exports, module){
         setNavShow();
     }
     function setNavShow()
-    {
+    {        
         switch(C("nav_show"))
         {
             case "always_show":
                 $("header").css({"visibility":"visible", "position":"relative"});
-                $("nav").css({"visibility":"initial", "position":"initial"});
+                $("nav").css({"visibility":"initial", "position":"initial", "display":"block"});
                 break;
             case "auto_hide":
                 $("header").css({"visibility":"visible", "position":"fixed"});
@@ -330,7 +339,7 @@ define(function(require, exports, module){
                 break;
             case "not_show":
                 $("header").css({"visibility":"initial", "position":"initial"});
-                $("nav").css({"visibility":"hidden", "position":"fixed"});
+                $("nav").css({"visibility":"hidden", "position":"fixed", "display":"block"});
                 break;
         }
         $("#s_options").css({"visibility":"visible"});
@@ -358,6 +367,7 @@ define(function(require, exports, module){
             var width = window.innerWidth - 145;
             $(this).css("width", width);
         });
+
     }
 
     $(document).ready(function() {
@@ -367,7 +377,7 @@ define(function(require, exports, module){
         var aOptions = document.getElementById("a_options");
         var dOptions = document.getElementById("d_options");    
                 
-
+        $("header").show();
         // Event bindings
         // bind radio input control choose event to radio label click event.
         $("span.radio_label").click(function() {
@@ -518,16 +528,16 @@ define(function(require, exports, module){
                 }
                 else
                 {
-                    $(this).css("outline", "none");   
+                    $(this).css("outline", "none");
                 }
             }
-        });    
+        });
 
         // setting frontground color event
-        $("#f_nv_style input[name=op_nav_style_fg_color]").click(function(e) {        
+        $("#f_nv_style input[name=op_nav_style_fg_color]").click(function(e) {
             C("nav_style.fg_color", $(this).css("background-color"));
             less.globalVars.fg_color = C("nav_style.fg_color");
-            less.modifyVars({            
+            less.modifyVars({
                 '@fg_color': C("nav_style.fg_color")
             });
             updateColor(aOptions, isShowOption);
@@ -538,8 +548,8 @@ define(function(require, exports, module){
 
 
         adjustWebview();
-        
-        window.onresize = function() {        
+           
+        window.onresize = function() {
             
             adjustWebview();
 
@@ -555,7 +565,7 @@ define(function(require, exports, module){
                 $(slider.handle).css("left", left);
                 $(slider.slider).find(".range-quantity").css("width", left);
             }
-            less.globalVars.win_height = window.innerHeight;        
+            less.globalVars.win_height = window.innerHeight;
             less.globalVars.win_width = window.innerWidth;
             less.modifyVars({
                 '@win_height': window.innerHeight,
@@ -572,17 +582,15 @@ define(function(require, exports, module){
             
         };
 
-
-        var isNavShow = false;
-        var aniTimeId = null;
-        $(document).mousemove(function(e){    
+        
+        $(document).mousemove(function(e){
             if(C("nav_show") == "auto_hide")
-            {
-                clearTimeout(aniTimeId);
+            {     
+                clearTimeout(aniTimeId);                    
                 if(e.clientY < C("nav_style.height.current"))
                 {
                     if(!isNavShow)
-                    {                    
+                    {
                         aniTimeId = setTimeout(function(){
                             $("nav").slideDown();
                             $("nav #s_options").slideDown();
@@ -593,15 +601,15 @@ define(function(require, exports, module){
                 else
                 {
                     if(isNavShow && !isShowOption)
-                    {
+                    {                        
                         aniTimeId = setTimeout(function(){
                             $("nav").slideUp();
                             $("nav #s_options").slideUp();
                             isNavShow = false;
                         }, C("nav_auto_hide_timeout.disappear"));
                     }
-                } 
-            }    
+                }
+            }
         });
     });
 });

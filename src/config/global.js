@@ -5,3 +5,7 @@ var less = {
             
     }
 };
+var isShowOption = false;
+var isNavShow = false;
+var aniTimeId = null;
+// var isFirstLoad = true;
