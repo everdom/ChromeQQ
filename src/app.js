@@ -377,7 +377,7 @@ define(function(require, exports, module){
         var aOptions = document.getElementById("a_options");
         var dOptions = document.getElementById("d_options");    
                 
-        $("header").show();
+        //$("header").show();
         // Event bindings
         // bind radio input control choose event to radio label click event.
         $("span.radio_label").click(function() {
