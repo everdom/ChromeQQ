@@ -9,7 +9,7 @@ var isShowOption = false;
 var isNavShow = false;
 var aniTimeId = null;
 
-var colors = {
+var colors = [
 	"AliceBlue",
 	"AntiqueWhite",
 	"Aqua",
@@ -294,4 +294,4 @@ var colors = {
 	"LightYellow",
 	"Ivory",
 	"White",
-};
+];
