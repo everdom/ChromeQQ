@@ -53,7 +53,7 @@ define(function(require, exports, module){
             }            
         }
         
-        initSettings(data);       
+        initSettings(data); 
     });
     
     function switchQQ(webview, type)
@@ -89,13 +89,28 @@ define(function(require, exports, module){
     }
     function setBgColor(bgColor, isCheck)
     {
+        var aOptions = document.getElementById("a_options");
         var colorReg = [
             /^\s*(rgb\(\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\))\s*$/i,
             /^\s*#([0-9a-f]{3})\s*$/i,
             /^\s*#([0-9a-f]{6})\s*$/i
-        ];
+        ];        
+        if(!bgColor)
+        {
+            return false;
+        }
         if(isCheck)
         {
+            if($.inArray(bgColor.toLowerCase(), colors)>-1)
+            {                
+                C("nav_style.bg_color", bgColor);
+                less.globalVars.bg_color = C("nav_style.bg_color");
+                less.modifyVars({
+                    '@bg_color': C("nav_style.bg_color"),
+                });
+                updateColor(aOptions, isShowOption);                        
+                return true;
+            }
             for(var i in colorReg)
             {
                 if(colorReg[i].test(bgColor))
@@ -109,8 +124,7 @@ define(function(require, exports, module){
                     return true;
                 }
             }
-            return false;
-                  
+            return false;                
         }
         else
         {
@@ -189,8 +203,7 @@ define(function(require, exports, module){
         $(".ranger-wrapper").each(function() {
             $(this).css("width", width);
         });
-
-        sliders = [];        
+        
         for (var i = 0; i < elems.length; i++) {
             // set initial value        
             sliders[i] = new Powerange(elems[i], sliderOptions[i]);
@@ -480,13 +493,14 @@ define(function(require, exports, module){
                     500);
             $(this).parent().find("input").removeClass('color_chooser_checked');
             $(this).addClass("color_chooser_checked");
+            $("#f_nv_style input[name=op_nav_style_bg_color_custom]").css("outline", "none");
         });
 
         // setting customed background color event
         $("#f_nv_style input[name=op_nav_style_bg_color_custom]").click(
             function(e) {
                 $(this).animate({
-                        width: "42px"
+                        width: "34px"
                     },
                     500);
             }        
@@ -515,7 +529,8 @@ define(function(require, exports, module){
                 }
                 else
                 {
-                    $(this).css("outline", "none");   
+                    $(this).css("outline", "initial"); 
+                    $("#f_nv_style").find("input").removeClass('color_chooser_checked');                    
                 }
             }
         ).keypress(function(e) {
@@ -528,7 +543,8 @@ define(function(require, exports, module){
                 }
                 else
                 {
-                    $(this).css("outline", "none");
+                    $(this).css("outline", "initial");
+                    $("#f_nv_style").find("input").removeClass('color_chooser_checked');                
                 }
             }
         });
