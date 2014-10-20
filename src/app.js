@@ -8,8 +8,8 @@ seajs.config({
 
 seajs.use("config/global");
 seajs.use("lib/jquery-2.1.1.min");
-seajs.use("lib/powerange");
-seajs.use("lib/jquery.easing.1.3");
+seajs.use("lib/powerange.min");
+seajs.use("lib/jquery.easing.1.3.min");
 
 define(function(require, exports, module){
     var config = require("config");
@@ -39,7 +39,7 @@ define(function(require, exports, module){
             less.globalVars.win_height = "620px";
         }
 
-        require.async("lib/less-1.7.4");          
+        require.async("lib/less-1.7.4.min");          
 
         var isFirstLoad = true;
 
