@@ -6,7 +6,7 @@ define(function(require,exports,module){
 		settings = changes.settings.newValue;		
 	});
 	
-	chrome.storage.sync.set({"settings":settings});
+	//chrome.storage.sync.set({"settings":settings});
 
 	chrome.storage.sync.get("settings", function(items){		
 		if(!items.settings)
