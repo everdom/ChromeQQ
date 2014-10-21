@@ -8,6 +8,7 @@ A chrome packaged app that integrated with smartqq and webqq, and easy to switch
 # Install
 
 If you are a common user who just want to try it , you can install it in the web store of chrome: 
+https://chrome.google.com/webstore/detail/chromeqq/pjkebmlmkppdjcdcilfcjdkifljollfd?utm_source=chrome-ntp-launcher
 
 If you want to help develop and improve this packaged app, just clone it to your local file system, open chrome://settings and press "load developing extension", choose the src folder in the project directory, then you can launch it by press launch link, or open it in the application launcher.
 
