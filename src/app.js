@@ -493,7 +493,9 @@ define(function(require, exports, module){
                     500);
             $(this).parent().find("input").removeClass('color_chooser_checked');
             $(this).addClass("color_chooser_checked");
-            $("#f_nv_style input[name=op_nav_style_bg_color_custom]").css("outline", "none");
+            $("#f_nv_style input[name=op_nav_style_bg_color_custom]").removeClass("color_chooser_highlight");
+            $("#f_nv_style input[name=op_nav_style_bg_color_custom]").removeClass("color_chooser_checked");
+            //$("#f_nv_style input[name=op_nav_style_bg_color_custom]").css("outline", "none");
         });
 
         // setting customed background color event
@@ -524,13 +526,14 @@ define(function(require, exports, module){
 
                 if(!setBgColor($(this).val(), true))
                 {
-                    $(this).css("outline", "2px solid red");
+                    $(this).addClass("color_chooser_highlight");
                     $(this).select();
                 }
                 else
                 {
-                    $(this).css("outline", "initial"); 
-                    $("#f_nv_style").find("input").removeClass('color_chooser_checked');                    
+                    $("#f_nv_style").find("input").removeClass('color_chooser_checked');
+                    $(this).removeClass("color_chooser_highlight");
+                    $(this).addClass("color_chooser_checked");                                        
                 }
             }
         ).keypress(function(e) {
@@ -538,12 +541,13 @@ define(function(require, exports, module){
             {
                 if(!setBgColor($(this).val(), true))
                 {
-                    $(this).css("outline", "2px solid red");
+                    $(this).addClass("color_chooser_hightlight");
                     $(this).select();
                 }
                 else
                 {
-                    $(this).css("outline", "initial");
+                    $(this).removeClass("color_chooser_hightlight");
+                    $(this).addClass("color_chooser_checked");
                     $("#f_nv_style").find("input").removeClass('color_chooser_checked');                
                 }
             }

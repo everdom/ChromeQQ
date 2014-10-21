@@ -1,6 +1,10 @@
 @bg_color_alpha:fade(@bg_color,@bg_opacity);
+@fg_color_alpha:fade(@fg_color,@bg_opacity);
+
 @nbg_color:rgba(255-red(@bg_color), 255-green(@bg_color), 255-blue(@bg_color), alpha(@bg_color));
 @nfg_color:rgba(255-red(@fg_color), 255-green(@fg_color), 255-blue(@fg_color), alpha(@fg_color));
+@nbg_color_alpha:fade(@nbg_color,@bg_opacity);
+@nfg_color_alpha:fade(@nfg_color,@bg_opacity);
 
 @text_color: @fg_color;
 @text_hover_color: @bg_color;
@@ -155,6 +159,9 @@ nav a:hover {
 }
 #d_options input.color_chooser_checked {
     outline: 1px solid contrast(@bg_color_alpha);
+}
+#d_options input.color_chooser_highlight {
+    outline: 2px solid @nbg_color;
 }
 #d_options input.color_chooser_custom {
     border: 1px solid rgba(128,128,128,0.2);
