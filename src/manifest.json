@@ -20,10 +20,5 @@
     "externally_connectable": {
        "matches": ["*://*.alloyteam.com/*", "*://*.qq.com/*", "*://*.qstatic.com/*"]
     },
-    /*
-    "sandbox":{
-        "pages":["window.html"]
-    },*/
-    //"content_security_policy":"default-src 'self'; script-src 'self' 'unsafe-eval'; object-src 'self'",
     "offline_enabled": true
 }
