@@ -1,8 +1,8 @@
 {
     "name": "ChromeQQ",
     "author":"everdom <everdom.g@gmail.com>",
-    "description": "ChromeQQÊÇÒ»¿î·½±ãÇĞ»»smart qqºÍweb qqµÄ´ò°üÓ¦ÓÃ",
-    "version": "0.1",
+    "description": "ChromeQQæ˜¯ä¸€æ¬¾æ–¹ä¾¿åˆ‡æ¢smart qqå’Œweb qqçš„æ‰“åŒ…åº”ç”¨",
+    "version": "0.2",
     "manifest_version": 2,
     "app": {
         "background": {
@@ -19,5 +19,5 @@
     ],
     "externally_connectable": {
        "matches": ["*://*.alloyteam.com/*", "*://*.qq.com/*", "*://*.qstatic.com/*"]
-    }    
+    }
 }
