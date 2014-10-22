@@ -1,7 +1,7 @@
 {
     "name": "ChromeQQ",
     "author":"everdom <everdom.g@gmail.com>",
-    "description": "ChromeQQ",
+    "description": "ChromeQQ是一款方便切换smart qq和web qq的打包应用",
     "version": "0.1",
     "manifest_version": 2,
     "app": {
@@ -19,6 +19,5 @@
     ],
     "externally_connectable": {
        "matches": ["*://*.alloyteam.com/*", "*://*.qq.com/*", "*://*.qstatic.com/*"]
-    },
-    "offline_enabled": true
+    }    
 }
