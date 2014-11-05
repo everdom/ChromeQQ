@@ -301,18 +301,19 @@ define(function(require, exports, module){
 
         function checkColorChoser($chooserElems, color)
         {        
-            $chooserElems.each(function(){
-                // console.log(color);
-                // console.log($(this).css("background-color"));
+            var hasColor = false;
+            $chooserElems.each(function(){                
                 if($(this).css("background-color") == color)
                 {
                     $(this).addClass('color_chooser_checked');
+                    hasColor = true;
                 }
                 else
                 {
                     $(this).removeClass('color_chooser_checked');
                 }
             });
+            return hasColor;
         }
 
         var webview = document.getElementById("qq");
@@ -335,8 +336,15 @@ define(function(require, exports, module){
         for(name in checkColorArr)
         {
             eleStr = "#d_options input[name=op_"+name+"]";        
-            checkColorChoser($(eleStr), C(checkColorArr[name]));
+            var hasColor = checkColorChoser($(eleStr), C(checkColorArr[name]));
+            if(name == 'nav_style_bg_color' && !hasColor)
+            {
+                $("#d_options input[name=op_nav_style_bg_color_custom]")
+                    .addClass('color_chooser_checked')
+                    .val(C(checkColorArr[name]));
+            }
         }
+
         setNavShow();
     }
     function setNavShow()
