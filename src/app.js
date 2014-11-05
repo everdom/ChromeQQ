@@ -7,9 +7,10 @@ seajs.config({
 });
 
 seajs.use("config/global");
-seajs.use("lib/jquery-2.1.1.min");
+seajs.use("lib/jquery-2.1.1.min", function(jQuery){
+    seajs.use("lib/jquery.easing.1.3.min");
+});
 seajs.use("lib/powerange.min");
-seajs.use("lib/jquery.easing.1.3.min");
 
 define(function(require, exports, module){
     var config = require("config");
