@@ -4,6 +4,11 @@ ChromeQQ
 # Overview
 
 A chrome packaged app that integrated with smartqq and webqq, and easy to switch between them.
+![screenshot1](https://raw.github.com/everdom/ChromeQQ/master/images/screenshot1.png)
+![screenshot2](https://raw.github.com/everdom/ChromeQQ/master/images/screenshot2.png)
+![screenshot3](https://raw.github.com/everdom/ChromeQQ/master/images/screenshot3.png)
+![screenshot4](https://raw.github.com/everdom/ChromeQQ/master/images/screenshot4.png)
+![screenshot5](https://raw.github.com/everdom/ChromeQQ/master/images/screenshot5.png)
 
 # Install
 
