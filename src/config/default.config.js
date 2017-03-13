@@ -28,16 +28,16 @@ define(function(require, exports, module){
 				'min':30,
 				'max':50,
 			},
-		},		
+		},
 		'smart_qq':{
 			'url': "http://w.qq.com",
 			'width':{
-				'current':328,
+				'current':1100,
 				'min':250,
 				'max':screen.availWidth
 			},
 			'height':{
-				'current':480,
+				'current':768,
 				'min':272,
 				'max':screen.availHeight
 			},
@@ -45,12 +45,12 @@ define(function(require, exports, module){
 		'web_qq':{
 			'url': "http://web2.qq.com/webqq.html",
 			'width':{
-				'current':1000,
+				'current':1100,
 				'min':620,
 				'max':screen.availWidth
 			},
 			'height':{
-				'current':610,
+				'current':768,
 				'min':610,
 				'max':screen.availHeight
 			},
