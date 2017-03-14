@@ -33,12 +33,12 @@ define(function(require, exports, module){
 			'url': "http://w.qq.com",
 			'width':{
 				'current':1100,
-				'min':250,
+				'min':1100,
 				'max':screen.availWidth
 			},
 			'height':{
 				'current':768,
-				'min':272,
+				'min':768,
 				'max':screen.availHeight
 			},
 		},
@@ -46,12 +46,12 @@ define(function(require, exports, module){
 			'url': "http://web2.qq.com/webqq.html",
 			'width':{
 				'current':1100,
-				'min':620,
+				'min':1100,
 				'max':screen.availWidth
 			},
 			'height':{
 				'current':768,
-				'min':610,
+				'min':768,
 				'max':screen.availHeight
 			},
 		}

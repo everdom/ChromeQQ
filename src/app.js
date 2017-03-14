@@ -40,23 +40,23 @@ define(function(require, exports, module){
             less.globalVars.win_height = "620px";
         }
 
-        require.async("lib/less-1.7.4.min");          
+        require.async("lib/less-1.7.4.min");
 
         var isFirstLoad = true;
 
         //initSliders(data);
 
-        less.onload = function(){       
+        less.onload = function(){
             if(isFirstLoad)
             {
                 initSliders(data);
                 isFirstLoad = false;
-            }            
+            }
         }
-        
-        initSettings(data); 
+
+        initSettings(data);
     });
-    
+
     function switchQQ(webview, type)
     {
         toggleOptionPanel(false);
@@ -65,13 +65,13 @@ define(function(require, exports, module){
         {
             C("app.current", "web_qq");
             webview.src = C('web_qq.url');
-            window.resizeTo(C("web_qq.width.current"), C("web_qq.height.current"));
+            // window.resizeTo(C("web_qq.width.current"), C("web_qq.height.current");
         }
         else
         {
             C("app.current", "smart_qq");
             webview.src = C('smart_qq.url');
-            window.resizeTo(C("smart_qq.width.current"), C("smart_qq.height.current"));
+            // window.resizeTo(C("smart_qq.width.current"), C("smart_qq.height.current"));
         }
     }
 
@@ -95,7 +95,7 @@ define(function(require, exports, module){
             /^\s*(rgb\(\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\))\s*$/i,
             /^\s*#([0-9a-f]{3})\s*$/i,
             /^\s*#([0-9a-f]{6})\s*$/i
-        ];        
+        ];
         if(!bgColor)
         {
             return false;
@@ -103,13 +103,13 @@ define(function(require, exports, module){
         if(isCheck)
         {
             if($.inArray(bgColor.toLowerCase(), colors)>-1)
-            {                
+            {
                 C("nav_style.bg_color", bgColor);
                 less.globalVars.bg_color = C("nav_style.bg_color");
                 less.modifyVars({
                     '@bg_color': C("nav_style.bg_color"),
                 });
-                updateColor(aOptions, isShowOption);                        
+                updateColor(aOptions, isShowOption);
                 return true;
             }
             for(var i in colorReg)
@@ -125,7 +125,7 @@ define(function(require, exports, module){
                     return true;
                 }
             }
-            return false;                
+            return false;
         }
         else
         {
@@ -204,14 +204,14 @@ define(function(require, exports, module){
         $(".ranger-wrapper").each(function() {
             $(this).css("width", width);
         });
-        
+
         for (var i = 0; i < elems.length; i++) {
-            // set initial value        
+            // set initial value
             sliders[i] = new Powerange(elems[i], sliderOptions[i]);
 
             var slider = sliders[i];
 
-            
+
             var left = (slider.options.start - slider.options.min) / (slider.options.max - slider.options.min) * width - 16;
             left = left < 0 ? 0 : left;
             left = left > width ? width: left;
@@ -270,7 +270,7 @@ define(function(require, exports, module){
                     case "nav_style.opacity.current":
                         less.globalVars.bg_opacity = C(bindConf);
                         less.modifyVars({
-                            '@bg_opacity': C(bindConf),             
+                            '@bg_opacity': C(bindConf),
                         });
                     break;
                     case "nav_style.height.current":
@@ -281,13 +281,13 @@ define(function(require, exports, module){
                         adjustWebview();
                     break;
                 }
-            }              
+            }
         });
     }
     function initSettings(settings){
         function checkRadio($radioElems, value)
         {
-            $radioElems.each(function(){            
+            $radioElems.each(function(){
                 if($(this).val() == value)
                 {
                     this.checked = true;
@@ -300,9 +300,9 @@ define(function(require, exports, module){
         }
 
         function checkColorChoser($chooserElems, color)
-        {        
+        {
             var hasColor = false;
-            $chooserElems.each(function(){                
+            $chooserElems.each(function(){
                 if($(this).css("background-color") == color)
                 {
                     $(this).addClass('color_chooser_checked');
@@ -318,7 +318,7 @@ define(function(require, exports, module){
 
         var webview = document.getElementById("qq");
         switchQQ(webview, settings.global.default);
-        
+
         var checkRadioArr = {
             'global_default':'global.default',
             'nav_position':'nav_position',
@@ -326,16 +326,16 @@ define(function(require, exports, module){
         };
         for(name in checkRadioArr)
         {
-            eleStr = "#d_options input[name=op_"+name+"]";        
+            eleStr = "#d_options input[name=op_"+name+"]";
             checkRadio($(eleStr), C(checkRadioArr[name]));
         }
         var checkColorArr = {
-            'nav_style_bg_color':'nav_style.bg_color', 
+            'nav_style_bg_color':'nav_style.bg_color',
             'nav_style_fg_color':'nav_style.fg_color'
         };
         for(name in checkColorArr)
         {
-            eleStr = "#d_options input[name=op_"+name+"]";        
+            eleStr = "#d_options input[name=op_"+name+"]";
             var hasColor = checkColorChoser($(eleStr), C(checkColorArr[name]));
             if(name == 'nav_style_bg_color' && !hasColor)
             {
@@ -348,7 +348,7 @@ define(function(require, exports, module){
         setNavShow();
     }
     function setNavShow()
-    {        
+    {
         switch(C("nav_show"))
         {
             case "always_show":
@@ -357,7 +357,7 @@ define(function(require, exports, module){
                 break;
             case "auto_hide":
                 $("header").css({"visibility":"visible", "position":"fixed"});
-                $("nav").css({"visibility":"initial", "position":"initial"}); 
+                $("nav").css({"visibility":"initial", "position":"initial"});
                 break;
             case "not_show":
                 $("header").css({"visibility":"initial", "position":"initial"});
@@ -371,11 +371,11 @@ define(function(require, exports, module){
     function adjustWebview()
     {
         jWebview = $("#qq");
-        jWebview.css({"width":window.innerWidth+"px"});    
+        jWebview.css({"width":window.innerWidth+"px"});
         switch(C("nav_show"))
         {
             case "always_show":
-                jWebview.css({"height":(window.innerHeight - C("nav_style.height.current")) + "px"});            
+                jWebview.css({"height":(window.innerHeight - C("nav_style.height.current")) + "px"});
                 break;
             case "auto_hide":
             case "not_show":
@@ -383,8 +383,8 @@ define(function(require, exports, module){
                 jWebview.css({"height": window.innerHeight + "px"});
             break;
         }
-        
-        
+
+
         $(".ranger-wrapper").each(function() {
             var width = window.innerWidth - 145;
             $(this).css("width", width);
@@ -397,8 +397,8 @@ define(function(require, exports, module){
         var aSmartQQ = document.getElementById("a_smart_qq");
         var aWebQQ = document.getElementById("a_web_qq");
         var aOptions = document.getElementById("a_options");
-        var dOptions = document.getElementById("d_options");    
-                
+        var dOptions = document.getElementById("d_options");
+
         //$("header").show();
         // Event bindings
         // bind radio input control choose event to radio label click event.
@@ -413,14 +413,14 @@ define(function(require, exports, module){
         });
 
         // UI Events
-        // WebView Events 
+        // WebView Events
         webview.addEventListener("loadstart", function() {
             document.title = C("app.loading_text");
         });
 
         webview.addEventListener("loadstop", function() {
             document.title = C("app.title");
-            //indicator.innerText = ""; 
+            //indicator.innerText = "";
             webview.style.width = window.innerWidth + "px";
             webview.style.height = window.innerHeight - C("nav_style.height") + "px";
         });
@@ -437,7 +437,7 @@ define(function(require, exports, module){
         aWebQQ.onclick = function(e) {
             switchQQ(webview, "web_qq");
         };
-        
+
 
         // option button event
         aOptions.onmouseenter = function(e) {
@@ -450,7 +450,7 @@ define(function(require, exports, module){
         };
 
         aOptions.onclick = function(e) {
-            if (!isShowOption) 
+            if (!isShowOption)
             {
                 toggleOptionPanel(true);
             }
@@ -462,7 +462,7 @@ define(function(require, exports, module){
 
 
         // setting default boot
-        $("span.radio_label").click(function() {            
+        $("span.radio_label").click(function() {
             $(this).prev("span").find("input[type=radio]").change();
 
         });
@@ -470,7 +470,7 @@ define(function(require, exports, module){
         $("input[name=op_global_default]").click(function(){
             $(this).change();
         });
-        
+
         $("input[name=op_global_default]").change(function(){
             C("global.default", $(this).val());
         });
@@ -483,7 +483,7 @@ define(function(require, exports, module){
         // setting nav show style
          $("input[name=op_nav_show]").change(function(){
             C("nav_show", $(this).val());
-            setNavShow();        
+            setNavShow();
         });
 
         // setting background color event
@@ -491,7 +491,7 @@ define(function(require, exports, module){
             C("nav_style.bg_color", $(this).css("background-color"));
             less.globalVars.bg_color = C("nav_style.bg_color");
             less.modifyVars({
-                '@bg_color': C("nav_style.bg_color"),            
+                '@bg_color': C("nav_style.bg_color"),
             });
 
             updateColor(aOptions, isShowOption);
@@ -514,7 +514,7 @@ define(function(require, exports, module){
                         width: "34px"
                     },
                     500);
-            }        
+            }
         ).mouseleave(
             function(e) {
                 if (!$(this).val() && document.activeElement != this) {
@@ -542,7 +542,7 @@ define(function(require, exports, module){
                 {
                     $("#f_nv_style").find("input").removeClass('color_chooser_checked');
                     $(this).removeClass("color_chooser_highlight");
-                    $(this).addClass("color_chooser_checked");                                        
+                    $(this).addClass("color_chooser_checked");
                 }
             }
         ).keypress(function(e) {
@@ -557,7 +557,7 @@ define(function(require, exports, module){
                 {
                     $(this).removeClass("color_chooser_hightlight");
                     $(this).addClass("color_chooser_checked");
-                    $("#f_nv_style").find("input").removeClass('color_chooser_checked');                
+                    $("#f_nv_style").find("input").removeClass('color_chooser_checked');
                 }
             }
         });
@@ -577,16 +577,15 @@ define(function(require, exports, module){
 
 
         adjustWebview();
-           
+
         window.onresize = function() {
-            
             adjustWebview();
 
             if(!isShowOption)
             {
                 $("#d_options").css({"display":"block","visibility":"hidden"});
             }
-            
+
             for (var i = 0; i < sliders.length; i++) {
                 var slider = sliders[i];
                 var left = (slider.element.value - slider.options.min) / (slider.options.max - slider.options.min) * $(slider.slider).width() - 16;
@@ -600,22 +599,32 @@ define(function(require, exports, module){
                 '@win_height': window.innerHeight,
                 '@win_width': window.innerWidth,
             });
+
             currentQQ = C("app.current");
-            C(currentQQ+".width.current",window.innerWidth);
-            C(currentQQ+".height.current",window.innerHeight);
+            if(window.innerWidth < C(currentQQ+".width.min")){
+              C(currentQQ+".width.current",C(currentQQ+".width.min"));
+            }else {
+              C(currentQQ+".width.current",window.innerWidth);
+            }
+
+            if(window.innerHeight < C(currentQQ+".height.min")){
+              C(currentQQ+".height.current",C(currentQQ+".height.min"));
+            }else{
+              C(currentQQ+".height.current",window.innerHeight);
+            }
 
             if(!isShowOption)
             {
                 $("#d_options").css({"display":"none", "visibility":"visible"});
             }
-            
+
         };
 
-        
+
         $(document).mousemove(function(e){
             if(C("nav_show") == "auto_hide")
-            {     
-                clearTimeout(aniTimeId);                    
+            {
+                clearTimeout(aniTimeId);
                 if(e.clientY < C("nav_style.height.current"))
                 {
                     if(!isNavShow)
@@ -630,7 +639,7 @@ define(function(require, exports, module){
                 else
                 {
                     if(isNavShow && !isShowOption)
-                    {                        
+                    {
                         aniTimeId = setTimeout(function(){
                             $("nav").slideUp();
                             $("nav #s_options").slideUp();
