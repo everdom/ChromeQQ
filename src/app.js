@@ -601,8 +601,8 @@ define(function(require, exports, module){
             });
 
             currentQQ = C("app.current");
-            if(window.innerWidth < C(currentQQ+".width.min")){
-              C(currentQQ+".width.current",C(currentQQ+".width.min"));
+            if(window.innerWidth < 1030){
+              C(currentQQ+".width.current",1030);
             }else {
               C(currentQQ+".width.current",window.innerWidth);
             }

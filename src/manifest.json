@@ -2,7 +2,7 @@
     "name": "ChromeQQ",
     "author":"everdom <everdom.g@gmail.com>",
     "description": "ChromeQQ是一款方便切换smart qq和web qq的打包应用",
-    "version": "0.4",
+    "version": "0.4.2",
     "manifest_version": 2,
     "app": {
         "background": {

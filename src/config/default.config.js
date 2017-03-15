@@ -32,8 +32,8 @@ define(function(require, exports, module){
 		'smart_qq':{
 			'url': "http://w.qq.com",
 			'width':{
-				'current':1100,
-				'min':1100,
+				'current':1030,
+				'min':1030,
 				'max':screen.availWidth
 			},
 			'height':{
@@ -45,8 +45,8 @@ define(function(require, exports, module){
 		'web_qq':{
 			'url': "http://web2.qq.com/webqq.html",
 			'width':{
-				'current':1100,
-				'min':1100,
+				'current':1030,
+				'min':1030,
 				'max':screen.availWidth
 			},
 			'height':{
