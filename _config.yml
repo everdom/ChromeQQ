@@ -1,0 +1,8 @@
+title: Chromeqq
+description: A chrome packaged app that integrated with smartqq and webqq, and easy to switch between them.
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-architect
+
+gems:
+  - jekyll-mentions
